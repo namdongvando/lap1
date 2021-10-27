@@ -1,0 +1,14 @@
+{
+    "name": "vendor/lap1",
+    "description": "Description of project lap1.",
+    "authors": [
+        {
+            "name": "MSI",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "namdongvando/rpfbc": "^3.22",
+        "namdongvando/imagesoptimizer": "^1.0"
+    }
+}

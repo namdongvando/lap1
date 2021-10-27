@@ -1,0 +1,114 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "1e9353c3d26041a2a33e47b2fcfddc5e",
+    "packages": [
+        {
+            "name": "namdongvando/imagesoptimizer",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/namdongvando/Images-optimizer.git",
+                "reference": "fb937a994f0edf1e6f54d07f02e595d232edcaba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/namdongvando/Images-optimizer/zipball/fb937a994f0edf1e6f54d07f02e595d232edcaba",
+                "reference": "fb937a994f0edf1e6f54d07f02e595d232edcaba",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Imagesoptimizer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "email": "namdong92@gmail.com",
+                    "role": "Owner"
+                },
+                {
+                    "email": "namdong92@gmail.com",
+                    "role": "Committer"
+                }
+            ],
+            "description": "images optimizer",
+            "keywords": [
+                "images optimizer",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/namdongvando/Images-optimizer/issues",
+                "source": "https://github.com/namdongvando/Images-optimizer/tree/1.0"
+            },
+            "time": "2021-09-15T11:57:17+00:00"
+        },
+        {
+            "name": "namdongvando/rpfbc",
+            "version": "3.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/namdongvando/RPFBC.git",
+                "reference": "f5a4326e7974f0dc87018921525fa7065ab857b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/namdongvando/RPFBC/zipball/f5a4326e7974f0dc87018921525fa7065ab857b9",
+                "reference": "f5a4326e7974f0dc87018921525fa7065ab857b9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PFBC\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "email": "namdong92@gmail.com",
+                    "role": "Owner"
+                },
+                {
+                    "email": "namdong92@gmail.com",
+                    "role": "Committer"
+                }
+            ],
+            "description": "Create Form",
+            "homepage": "https://nguyenvando.net/rpfbc",
+            "keywords": [
+                "form",
+                "html",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/namdongvando/RPFBC/issues",
+                "source": "https://github.com/namdongvando/RPFBC/tree/3.22"
+            },
+            "time": "2021-06-15T07:55:13+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
+}

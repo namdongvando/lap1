@@ -2,9 +2,32 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include './Pages/home.php';
-include './vendor/autoload.php'; 
-Imagesoptimizer\Images::Optimizer("app-hero-bg.jpg"); 
-?>
- 
-<img width="600" src="app-hero-bg.jpg" alt=""/>
+include './config.php';
+include './vendor/autoload.php';
+
+echo $_controllerName = isset($_GET["controller"]) ? $_GET["controller"] : "index";
+
+echo $_actionName = isset($_GET["action"]) ? $_GET["action"] : "index";
+
+$quanlytin = new Controller\quanlytin();
+$strController = "Controller\\{$_controllerName}";
+
+if (class_exists($strController)) {
+    $_Controller = new $strController();
+    if (method_exists($_Controller, $_actionName)) {
+        $_Controller->$_actionName();
+    } else {
+        $_Controller = new \Controller\index();
+        $_Controller->loi404();
+    }
+} else {
+    $_Controller = new \Controller\index();
+    $_Controller->loi404();
+}
+
+
+//$indexcontroler = new Controller\index();
+//$indexcontroler->index();
+?> 
+<!--<img width="600" src="/app-hero-bg.jpg" alt=""/>-->
+

@@ -4,20 +4,28 @@ namespace Controller;
 
 use Model\TinTuc;
 
-class quanlytin {
+class quanlytin extends \Application implements IControllerBE {
 
     public function __construct() {
         
+        self::$_Theme = "backend";
     }
 
     function index() {
-
-        $tinTuc = new TinTuc();
-        $tinTuc->DanhSachTin();
+        
+        $this->View();
     }
 
-    function themtin() {
-        echo "Thêm tin";
+    public function delete() {
+        $this->View();
+    }
+
+    public function post() {
+        $this->View();
+    }
+
+    public function put() {
+        $this->View();
     }
 
 }

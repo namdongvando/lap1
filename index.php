@@ -5,11 +5,12 @@ error_reporting(E_ALL);
 include './config.php';
 include './vendor/autoload.php';
 
-echo $_controllerName = isset($_GET["controller"]) ? $_GET["controller"] : "index";
-
-echo $_actionName = isset($_GET["action"]) ? $_GET["action"] : "index";
-
-$quanlytin = new Controller\quanlytin();
+$_controllerName = isset($_GET["controller"]) ? $_GET["controller"] : "index";
+Application::SetController($_controllerName);
+$_actionName = isset($_GET["action"]) ? $_GET["action"] : "index";
+Application::SetAction($_actionName);
+Application::$_Theme = "backend";
+//$quanlytin = new Controller\quanlytin();
 $strController = "Controller\\{$_controllerName}";
 
 if (class_exists($strController)) {

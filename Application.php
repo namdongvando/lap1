@@ -4,6 +4,7 @@ class Application {
 
     static public $_Controller;
     static public $_Theme;
+    static public $_Layout;
     static public $_Action;
 
     function __construct() {
@@ -18,12 +19,34 @@ class Application {
         self::$_Action = $_actionName;
     }
 
-    public function View() {
+    public static function SetLayout($_layout) {
+        self::$_Layout = $_layout;
+    }
+
+    public function View($data = []) {
+        if ($data) {
+            if (is_array($data)) {
+                extract($data);
+            }
+        }
+        $controller = self::$_Controller;
+        $action = self::$_Action;
+        $theme = self::$_Theme;
+        $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
+        $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
+        include __DIR__ . "/Views/theme/{$theme}/layout{$_layout}.phtml";
+    }
+    public function PartialView($data = []) {
+        if ($data) {
+            if (is_array($data)) {
+                extract($data);
+            }
+        }
         $controller = self::$_Controller;
         $action = self::$_Action;
         $theme = self::$_Theme;
         $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
-        include __DIR__. "/Views/theme/{$theme}/layout.phtml";
+        include $_Content;
     }
 
 }

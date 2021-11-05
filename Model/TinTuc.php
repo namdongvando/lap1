@@ -2,8 +2,8 @@
 
 namespace Model; 
  
-class TinTuc {
-  
+class TinTuc { 
+    
     function DanhSachTin() {
         echo "Danh Sach Tin";
     }

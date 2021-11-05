@@ -9,4 +9,7 @@ spl_autoload_register(function($className){
 //    echo "___".$className; 
 });
 
+
+//#mbne6Y3&foG
+
  ?>

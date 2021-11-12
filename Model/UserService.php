@@ -1,18 +1,38 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Model;
 
-/**
- * Description of UserService
- *
- * @author MSI
- */
-class UserService {
-    //put your code here
+class UserService extends DB implements IModelService {
+
+    public function __construct() {
+        self::$TableName = prefixTable . "users";
+        parent::__construct();
+    }
+
+    public function Delete($Id) {
+        
+    }
+
+    public function GetItems($where, $indexPage, $pageNumber, &$total) {
+        
+    }
+
+    public function Post($model) {
+        
+    }
+
+    public function Put($model) {
+        
+    }
+
+    public function GetUserByUsernamPassword($userName, $password) {
+        $where = "`Username` = '{$userName}' and `Password` = SHA1(CONCAT(`KeyPassword`,CONCAT('{$password}',`KeyPassword`)))";
+        return $this->SelectRow($where);
+    }
+
+    public function GetById($Id) {
+        $where = "`Id` = '{$Id}'";
+        return $this->SelectRow($where);
+    }
+
 }

@@ -8,10 +8,13 @@ class DB {
     public static $Debug;
     private static $Connect;
 
-    public function __construct() {
-        $ad = new \Model_Adapter();
-        if (self::$Connect == null)
-            self::$Connect = \Model_Adapter::$_conn;
+    public function __construct() { 
+        if (self::$Connect == null) {
+            global $INI;
+            $_conn = mysqli_connect($INI['host'], $INI['username'], $INI['password'], $INI['DBname']) or mysqli_errno("Can't connect database");
+            mysqli_query($_conn, "SET NAMES utf8"); // Chuyển dữ liệu trả về sang kiểu utf8
+            self::$Connect = $_conn;
+        }
     }
 
     protected function GetRows($sql) {

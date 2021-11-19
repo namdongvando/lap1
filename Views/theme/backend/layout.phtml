@@ -18,11 +18,22 @@ use Views\theme\backend\Functions;
             ?> 
             <div class="content-wrapper">
                 <?php
+                $error = \Model\Error::GetError();
+                if ($error != null) {
+                    ?> 
+                    <div class="system-alert alert alert-<?php echo $error["Type"]; ?> alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <?php echo $error["Content"]; ?>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php
                 include $_Content;
                 ?> 
             </div>
-            <?php 
-            Functions::footer();  
+            <?php
+            Functions::footer();
             Functions::aside();
             ?>  
         </div><!-- ./wrapper --> 

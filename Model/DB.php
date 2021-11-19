@@ -50,7 +50,7 @@ class DB {
     }
 
     // Phan Trang
-    protected function SelectPT($where, $indexPage, $pageNumber, &$total) {
+    protected function SelectPT($where, $indexPage, $pageNumber = 10, &$total = 0) {
         $indexPage = ($indexPage - 1) * $pageNumber;
         $indexPage = max($indexPage, 0);
         $total = $this->SelectCount($where);
@@ -113,7 +113,7 @@ class DB {
 
     // xóa data base
 
-    public function UpdateDB($where) {
+    public function DeleteDB($where) {
         $TableName = self::$TableName;
         $sql = "DELETE FROM `{$TableName}` WHERE {$where}";
         self::$Connect->query($sql);

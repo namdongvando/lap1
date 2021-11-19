@@ -7,11 +7,13 @@ if ($error != null) {
         <?php echo $error["Content"]; ?>
     </div>
     <?php
-} 
+}
 $isCheck = isset($_COOKIE["GhiNhoMatKhau"]) ? "checked" : "";
 $taiKhoan = isset($_COOKIE["TaiKhoan"]) ? $_COOKIE["TaiKhoan"] : "";
 ?>
-
+<div class="login-logo">
+    <a href="">Đăng nhập</a>
+</div><!-- /.login-logo -->
 <form action="" method="post">
     <div class="form-group has-feedback">
         <input type="text" value="<?php echo $taiKhoan; ?>" required="required" name="TaiKhoan" class="form-control" placeholder="tài khoản">
@@ -41,4 +43,4 @@ $taiKhoan = isset($_COOKIE["TaiKhoan"]) ? $_COOKIE["TaiKhoan"] : "";
     <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
 </div><!-- /.social-auth-links -->
 
-<a href="#">Quyên Mật Khẩu</a><br> 
+<a href="/index.php?controller=login&action=quenmatkhau">Quyên Mật Khẩu</a><br> 

@@ -37,7 +37,7 @@ class Functions {
         <!-- Daterange picker -->
         <link rel="stylesheet"  href="/public/plugins/daterangepicker/daterangepicker-bs3.css">
         <link rel="stylesheet"  href="/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+        <link href="/public/App.css" rel="stylesheet" type="text/css"/>
         <?php
     }
 
@@ -77,9 +77,11 @@ class Functions {
         <!-- AdminLTE App -->
         <script src="/public/dist/js/app.min.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+         <script src="/public/App.js" type="text/javascript"></script>
         <script src="/public/dist/js/pages/dashboard.js"></script>
         <!-- AdminLTE for demo purposes -->
-        <script src="/public/dist/js/demo.js"></script>
+        <script src="/public/dist/js/demo.js"></script> 
+       
         <?php
     }
 
@@ -246,7 +248,7 @@ class Functions {
                 </div><!-- /.tab-pane -->
             </div>
         </aside><!-- /.control-sidebar -->
-         <div class="control-sidebar-bg"></div>
+        <div class="control-sidebar-bg"></div>
         <?php
     }
 
@@ -522,9 +524,9 @@ class Functions {
                 </div>  
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    
-                    
-                    <li class="<?php echo \Application::$_Controller=="dashboard"?'active':'' ?> treeview">
+
+
+                    <li class="<?php echo \Application::$_Controller == "dashboard" ? 'active' : '' ?> treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -533,8 +535,8 @@ class Functions {
                             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                         </ul>
                     </li>
-                    
-                    <li class="<?php echo \Application::$_Controller=="quanlytin"?'active':'' ?> treeview">
+
+                    <li class="<?php echo \Application::$_Controller == "quanlytin" ? 'active' : '' ?> treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i> <span>Quản Lý Bài Viết</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -547,6 +549,19 @@ class Functions {
                             </li>
                         </ul>
                     </li>
+                    <?php
+                     
+                    if (\Model\Permission::CheckPremision([\Model\User::Admin,md5(\Controller\quanlyquyen::class)]) == true) {
+                        ?>
+                        <li class="<?php echo \Application::$_Controller == "quanlyquyen" ? 'active' : '' ?> treeview">
+                            <a href="/index.php?controller=quanlyquyen">
+                                <i class="fa fa-dashboard"></i> <span>Quản Lý Quyền</span>  
+                            </a> 
+                        </li>
+                        <?php
+                    }
+                    ?> 
+
                     <li class="treeview hidden  ">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
@@ -560,7 +575,7 @@ class Functions {
                             <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
                         </ul>
                     </li>
-                    
+
                 </ul>
             </section>
             <!-- /.sidebar -->

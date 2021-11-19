@@ -34,5 +34,9 @@ class UserService extends DB implements IModelService {
         $where = "`Id` = '{$Id}'";
         return $this->SelectRow($where);
     }
-
+    
+    public function CreateToken() { 
+        return sha1(time());     
+    }
+    
 }

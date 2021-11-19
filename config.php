@@ -1,12 +1,13 @@
- <?php
- session_start();
- ob_start();
- 
-spl_autoload_register(function($className){
+<?php
+
+session_start();
+ob_start();
+
+spl_autoload_register(function($className) {
     $className = str_replace("\\", "/", $className);
     $className = str_replace("_", "/", $className);
-     $className = "{$className}.php";
-    if(file_exists($className)){
+    $className = "{$className}.php";
+    if (file_exists($className)) {
         include $className;
     }
 //    echo "___".$className; 
@@ -15,11 +16,18 @@ define("prefixTable", "lap1_");
 define("QuanLy", "quanly");
 define("LoginPage", "/index.php?controller=login");
 global $INI;
-$INI['host'] = "localhost";
-$INI['username'] = "root";
-$INI['password'] = "";
-$INI['DBname'] = "lap1";
+if (false) {
+
+    $INI['host'] = "localhost";
+    $INI['username'] = "oetkpjhosting_lap1";
+    $INI['password'] = "@.rOKU1sh2r*";
+    $INI['DBname'] = "oetkpjhosting_lap1";
+} else {  
+    $INI['host'] = "localhost";
+    $INI['username'] = "root";
+    $INI['password'] = "";
+    $INI['DBname'] = "lap1";
+}
 
 //#mbne6Y3&foG
-
- ?>
+?>

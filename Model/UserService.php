@@ -13,12 +13,14 @@ class UserService extends DB implements IModelService {
         
     }
 
-    public function GetItems($where, $indexPage, $pageNumber, &$total) {
-        
+    public function GetItems($params, $indexPage, $pageNumber, &$total) {
+        $keyword = $params["keyword"];
+        $where = " `Name` like '%$keyword%' or `Username` like '%$keyword%' or `Email` like '%$keyword%' ";
+        return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 
     public function Post($model) {
-        
+        return $this->Insert($model);
     }
 
     public function Put($model) {
@@ -34,9 +36,18 @@ class UserService extends DB implements IModelService {
         $where = "`Id` = '{$Id}'";
         return $this->SelectRow($where);
     }
-    
-    public function CreateToken() { 
-        return sha1(time());     
+
+    public function CreateToken() {
+        return sha1(time());
     }
-    
+
+    /**
+     * // tạo mật khâu mã hóa
+     * @param {type} parameter
+     */
+    static public function CreatePassword($password, $keypassword) {
+        $password = $keypassword . $password . $keypassword;
+        return sha1($password);
+    }
+
 }

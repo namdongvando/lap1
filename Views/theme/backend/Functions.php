@@ -37,7 +37,7 @@ class Functions {
         <!-- Daterange picker -->
         <link rel="stylesheet"  href="/public/plugins/daterangepicker/daterangepicker-bs3.css">
         <link rel="stylesheet"  href="/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-        <link href="/public/App.css" rel="stylesheet" type="text/css"/>
+        <link href="/public/App.css?v=<?php echo filemtime("public/App.css"); ?>" rel="stylesheet" type="text/css"/>
         <?php
     }
 
@@ -77,11 +77,11 @@ class Functions {
         <!-- AdminLTE App -->
         <script src="/public/dist/js/app.min.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-         <script src="/public/App.js" type="text/javascript"></script>
+        <script src="/public/App.js?v=<?php echo filemtime("public/App.js"); ?>" type="text/javascript"></script>
         <script src="/public/dist/js/pages/dashboard.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="/public/dist/js/demo.js"></script> 
-       
+
         <?php
     }
 
@@ -550,12 +550,22 @@ class Functions {
                         </ul>
                     </li>
                     <?php
-                     
-                    if (\Model\Permission::CheckPremision([\Model\User::Admin,md5(\Controller\quanlyquyen::class)]) == true) {
+                    if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyquyen::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyquyen" ? 'active' : '' ?> treeview">
                             <a href="/index.php?controller=quanlyquyen">
                                 <i class="fa fa-dashboard"></i> <span>Quản Lý Quyền</span>  
+                            </a> 
+                        </li>
+                        <?php
+                    }
+                    ?> 
+                    <?php
+                    if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyusers::class)]) == true) {
+                        ?>
+                        <li class="<?php echo \Application::$_Controller == "quanlyusers" ? 'active' : '' ?> treeview">
+                            <a href="/index.php?controller=quanlyusers">
+                                <i class="fa fa-dashboard"></i> <span>Quản Lý Tài Khoản</span>  
                             </a> 
                         </li>
                         <?php

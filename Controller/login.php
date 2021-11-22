@@ -77,20 +77,18 @@ class login extends \Application {
          * @param {type} parameter
          */
         if (isset($_COOKIE['Token'])) {
-
             $token = $_COOKIE['Token'];
             $tokenDecode = base64_decode($token);
             $key = sha1($_SERVER["HTTP_USER_AGENT"]);
-            var_dump($key);
-            var_dump($tokenDecode); 
+//            var_dump($key);
+//            var_dump($tokenDecode); 
             $user = json_decode($tokenDecode, JSON_OBJECT_AS_ARRAY);
-            var_dump($user);
+//            var_dump($user);
             if ($key == $user["key"]) {
                 $_SESSION[QuanLy] = $user;
                 \Model\Common::ToUrl("/index.php?controller=backend");
             }
         }
-
         $this->View();
     }
 
@@ -100,8 +98,9 @@ class login extends \Application {
      */
     function quenmatkhau() {
         if (isset($_POST["Email"])) {
+
             \Model\Mail::SendMail(["Email" => "namdong92@gmail.com", "Name" => "Admin dep trai"], "Reaet passs", "test", "test");
-        } 
+        }
         $this->View();
     }
 

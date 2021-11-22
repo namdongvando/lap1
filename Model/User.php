@@ -3,12 +3,12 @@
 namespace Model;
 
 class User {
-    
+
     const Admin = "Admin";
     const QuanLy = "QuanLy";
     const VietBai = "VietBai";
     const QuanLySanPham = "QuanLySanPham";
-    
+
     public $Id;
     public $Name;
     public $Username;
@@ -55,18 +55,62 @@ class User {
                 if ($deline == $role["RoleId"]) {
                     return false;
                 }
-            } 
+            }
             foreach ($Allows as $Allow) {
                 if ($Allow == $role["RoleId"]) {
                     return true;
                 }
             }
-        } 
+        }
         return false;
     }
 
     public static function CurentUser() {
         return new \Model\User($_SESSION[QuanLy]);
+    }
+
+    /**
+     * nút sửa
+     * @param {type} parameter
+     */
+    public function btnSua() {
+        if (Permission::CheckPremision([User::Admin,md5(\Controller\quanlyusers::class . "_put"), md5(\Controller\quanlyusers::class)]) == false) {
+            return;
+        }
+
+        $btn = <<<BTNSUA
+                <a class="btn btn-sm btn-primary"  href="/index.php?controller=quanlyusers&action=put&id={$this->Id}" >Sửa</a>
+                
+BTNSUA;
+        return $btn;
+    }
+
+    /**
+     * nút xóa
+     * @param {type} parameter
+     */
+    public function btnXoa() {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyusers::class . "_delete"), md5(\Controller\quanlyusers::class)]) == false) {
+            return;
+        }
+        $btn = <<<BTNSUA
+                <a title="Bạn có muốn xóa tài khoản này?" class="btn btn-sm btn-danger"  href="/index.php?controller=quanlyusers&action=delete&id={$this->Id}" >Xóa</a>
+                
+BTNSUA;
+        return $btn;
+    }
+
+    public static function btnThem() {
+//        <a href="/index.php?controller=quanlyquyen&action=post" class="btn btn-success" ><i class="fa fa-plus" ></i></a>
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyusers::class . "_post"), md5(\Controller\quanlyusers::class)]) == false) {
+            return;
+        }
+
+        $btn = <<<BTNSUA
+                <a href="/index.php?controller=quanlyusers&action=post" class="btn btn-success" ><i class="fa fa-plus" ></i></a>
+                
+BTNSUA;
+        return $btn;
     }
 
 }

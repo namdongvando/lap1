@@ -1,0 +1,36 @@
+ 
+
+<div class="container-fluid" >
+    <div class="box box-primary" >
+        <div class="box-header" >
+            <h3 class="box-title" >Danh Sách Quyền</h3>
+            <div class="box-tools" >
+                <!--<a href="#" class="btn btn-success" ><i class="fa fa-plus" ></i></a>-->
+            </div>
+        </div>
+        <div class="box-body" >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Key</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($data as $actionName => $key) {
+                        ?> 
+                        <tr> 
+                            <th><?php echo $actionName; ?></th>
+                            <th><?php echo $key; ?></th> 
+                        </tr>
+                        <?php
+                    }
+                    ?> 
+                </tbody>
+            </table> 
+        </div>
+    </div>
+
+
+</div>

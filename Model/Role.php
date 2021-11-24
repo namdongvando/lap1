@@ -21,7 +21,7 @@ class Role extends DB implements IModelService {
     }
 
     public function Delete($Id) {
-        $ur = new \Model\UserRole(); 
+        $ur = new \Model\UserRole();
         $roles = $ur->GetByRoleId($Id);
         // liên kết ở bảng khác.
         if ($roles != null) {
@@ -30,13 +30,13 @@ class Role extends DB implements IModelService {
         $modelRole = new Role();
         DB::$Debug = true;
         $roledetail = $modelRole->GetById($Id);
-       
+
         // cấu hình không cho xóa
-        if($roledetail["IsNotDelete"]==1){
-            return null; 
+        if ($roledetail["IsNotDelete"] == 1) {
+            return null;
         }
         $where = "`Id` = '{$Id}'";
-        
+
         return $modelRole->DeleteDB($where);
     }
 
@@ -66,7 +66,7 @@ class Role extends DB implements IModelService {
      * @param {type} parameter
      */
     public function btnSua() {
-        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class)]) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_put")]) == false) {
             return;
         }
 
@@ -82,7 +82,7 @@ BTNSUA;
      * @param {type} parameter
      */
     public function btnXoa() {
-        if (Permission::CheckPremision(User::Admin) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_delete")]) == false) {
             return;
         }
         $btn = <<<BTNSUA
@@ -90,6 +90,18 @@ BTNSUA;
                 
 BTNSUA;
         return $btn;
+    }
+
+    public static function btnThem() {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_post")]) == false) {
+            return;
+        }
+        $btn = <<<BTNSUA
+                <a href="/index.php?controller=quanlyquyen&action=post" class="btn btn-success" ><i class="fa fa-plus" ></i></a>
+                
+BTNSUA;
+        return $btn;
+        //
     }
 
 }

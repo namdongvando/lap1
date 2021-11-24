@@ -11,7 +11,7 @@ $modelUser = new Model\User($user);
 <div class="container-fluid" >
     <div class="box box-primary" >
         <div class="box-header" >
-            <h3 class="box-title" >Tạo Tài Khoản</h3>
+            <h3 class="box-title" >Thông Tin Chung</h3>
             <div class="box-tools" >
                 <!--<a href="#" class="btn btn-success" ><i class="fa fa-plus" ></i></a>-->
             </div>
@@ -21,13 +21,13 @@ $modelUser = new Model\User($user);
                 <div class="col-md-6" >
                     <form action="" method="POST">
                         <?php
-                        \Model\Users\FormUser::Name($modelUser->Name)->renderHTML();
+                        \Model\Users\FormUser::Id($modelUser->Id)->render();
                         \Model\Users\FormUser::Username($modelUser->Username)->renderHTML();
+                        \Model\Users\FormUser::Name($modelUser->Name)->renderHTML();
                         \Model\Users\FormUser::Email($modelUser->Email)->renderHTML();
+                        \Model\Users\FormUser::BOD($modelUser->BODFomatDB())->renderHTML();
                         \Model\Users\FormUser::Active($modelUser->Active)->renderHTML();
-                        ?> 
-
-
+                        ?>  
                         <div class="form-group " >  
                             <button class="btn btn-default"  type="reset" >Làm Lại</button>
                             <button class="btn btn-success" >Lưu</button>
@@ -36,23 +36,22 @@ $modelUser = new Model\User($user);
                     </form>
                 </div>
                 <div class="col-md-6" >
-                    <form action="">
+                    <form method="POST" action="/index.php?controller=quanlyusers&action=resetpassword">
                         <div class="box box-primary" >
                             <div class="box-header" >
                                 <h3 class="box-title" >Reset Mật Khẩu</h3> 
                             </div>
                             <div class="box-body" >
                                 <div class="form-group" >
-                                    <label>Mật Khẩu</label>
+                                    <label>Mật Khẩu Mới</label>
                                     <div class="d-flex" >
                                         <?php
+                                        \Model\Users\FormUser::Id($modelUser->Id)->render();
                                         \Model\Users\FormUser::CreatePassword()->render();
                                         ?>
                                         <button type="button" data-target="#CreatePassword"  class="btngeneratePassword btn btn-primary" >Ngâu Nhiên</button>
                                     </div>
-                                </div>
-
-
+                                </div> 
                             </div>
                             <div class="box-footer" >
                                 <button class="btn btn-success" >Lưu</button>
@@ -60,30 +59,46 @@ $modelUser = new Model\User($user);
                         </div>
                     </form>
                     <div class="box box-primary" >
-                        <div class="box-header" >
-                            <h3 class="box-title" >Danh Sách Quyền</h3> 
-                        </div>
-                        <div class="box-body" >
-                            <?php
-                            $modelRole = new Model\Role();
-                            $total = 0;
-                            $roles = $modelRole->GetItems(["keyword" => ""], 1, 1000, $total);
-                            foreach ($roles as $role) {
-                                $_role = new Model\Role($role);
-                                ?> 
-                                <div class="list-group" >
-                                    <div><label><input type="checkbox" name="Roles[<?php echo $_role->Id ?>]" >  <?php echo $_role->Name ?> </label> </div>
-                                </div>
+                        <form action="/index.php?controller=quanlyusers&action=phanquyen" method="post" >
+                            <div class="box-header" >
+                                <h3 class="box-title" >Danh Sách Quyền</h3> 
+                            </div>
+                            <div class="box-body" >
                                 <?php
-                            }
-                            ?>
+                                \Model\Users\FormUser::Id($modelUser->Id)->render();
+                                $modelRole = new Model\Role();
+                                $total = 0;
+                                $roles = $modelRole->GetItems(["keyword" => ""], 1, 1000, $total);
+                                foreach ($roles as $role) {
+                                    $_role = new Model\Role($role);
+                                    $rolesOfUser = $modelUser->GetRole();
+                                    $isChecked = false;
+                                    // check quyền đang có
+                                    if ($modelUser->CheckPremision([$_role->Id])) {
+                                        $isChecked = true;
+                                    }
+                                    ?> 
+                                    <div class="list-group" >
+                                        <div>
+                                            <label>
+                                                <input <?php echo $isChecked == true ? 'checked=""' : '' ?> value="<?php echo $_role->Id ?>"  type="checkbox" name="Rolesuser[<?php echo $_role->Id ?>]" > 
+                                                <?php echo $_role->Name ?>|<?php echo $_role->Des ?>
+                                                
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
 
 
 
-                        </div>
-                        <div class="box-footer" >
-                            <button class="btn btn-success" >Lưu</button>
-                        </div>
+                            </div>
+                            <div class="box-footer" >
+                                <button class="btn btn-success" >Lưu</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

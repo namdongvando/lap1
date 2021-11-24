@@ -9,7 +9,10 @@
         <div class="box-header" >
             <h3 class="box-title" >Danh Sách Quyền</h3>
             <div class="box-tools" >
-                <a href="/index.php?controller=quanlyquyen&action=post" class="btn btn-success" ><i class="fa fa-plus" ></i></a>
+                <?php 
+                 echo \Model\Role::btnThem();
+                ?>
+                
             </div>
         </div>
         <div class="box-body" >

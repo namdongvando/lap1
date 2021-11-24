@@ -74,7 +74,7 @@ class User {
      * @param {type} parameter
      */
     public function btnSua() {
-        if (Permission::CheckPremision([User::Admin,md5(\Controller\quanlyusers::class . "_put"), md5(\Controller\quanlyusers::class)]) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyusers::class . "_put"), md5(\Controller\quanlyusers::class)]) == false) {
             return;
         }
 
@@ -111,6 +111,14 @@ BTNSUA;
                 
 BTNSUA;
         return $btn;
+    }
+
+    public function BODFomatDB() {
+        return date(Common::DateFomatDatabase(), strtotime($this->BOD));
+    }
+
+    public function BODView() {
+        return date(Common::DateFomatView(), strtotime($this->BOD));
     }
 
 }

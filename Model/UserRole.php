@@ -28,14 +28,21 @@ class UserRole extends DB implements IModelService {
         
     }
 
+    public function DeleteByUseId($userId) {
+        $where = "`UserId` = '{$userId}'";
+        $this->DeleteDB($where);
+    }
+
     public function GetByRoleId($roleId) {
         $where = "`RoleId` = '{$roleId}'";
         return $this->Select($where);
     }
+
     public function GetByUserId($userId) {
         $where = "`UserId` = '{$userId}'";
         return $this->Select($where);
     }
+
     public function GetById($Id) {
         $where = "`Id` = '{$Id}'";
         return $this->SelectRow($where);
@@ -46,7 +53,21 @@ class UserRole extends DB implements IModelService {
     }
 
     public function Post($model) {
-        
+        $this->Insert($model);
+    }
+
+    function UpdateByUserId($userId, $roles) {
+        var_dump($roles);
+        // xóa hết các quyền của user
+        $this->DeleteByUseId($userId);
+        // tạo lại quyền
+        foreach ($roles as $roleId) {
+            $model["Id"] = Common::uuid();
+            $model["UserId"] = $userId;
+            $model["RoleId"] = $roleId;
+            $this->Post($model);
+        }
+        return true;
     }
 
     public function Put($model) {

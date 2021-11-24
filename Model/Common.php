@@ -42,8 +42,19 @@ class Common {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function DateFomatDatabase() {
+    public static function DateTimeFomatDatabase() {
         return "Y-m-d H:i:s";
+    }
+    public static function DateFomatDatabase() {
+        return "Y-m-d";
+    }
+
+    public static function StrToDateDB($strdate) {
+        return date(\Model\Common::DateFomatDatabase(), strtotime($strdate));
+    }
+
+    public static function DateFomatView() {
+         return "d-m-Y";
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use Model\Users\FormUser;
+
 class quanlyusers extends \Application implements IControllerBE {
 
     public function __construct() {
@@ -35,26 +37,44 @@ class quanlyusers extends \Application implements IControllerBE {
         \Model\Permission::Check([\Model\User::Admin, md5(quanlyusers::class . "_" . __FUNCTION__)]);
     }
 
+    /**
+     * them tài khoản
+     * @param {type} parameter
+     */
     public function post() {
         \Model\Permission::Check([\Model\User::Admin, md5(quanlyusers::class . "_" . __FUNCTION__)]);
         if (isset($_POST[\Model\Users\FormUser::$ElementsName])) {
             try {
+                $userservice = new \Model\UserService();
+
                 $userForm = $_POST[\Model\Users\FormUser::$ElementsName];
                 $Modeluser["Name"] = \Model\Common::TextInput($userForm["Name"]);
                 if ($Modeluser["Name"] == "") {
-                    throw new Exception("Họ & Tên Không Để Trống.");
+                    throw new \Exception("Họ & Tên Không Để Trống.");
                 }
                 $Modeluser["Email"] = \Model\Common::TextInput($userForm["Email"]);
                 if ($Modeluser["Email"] == "") {
-                    throw new Exception("Họ & Tên Không Để Trống.");
+                    throw new \Exception("Họ & Tên Không Để Trống.");
                 }
                 if (\Model\Common::IsEmail($Modeluser["Email"]) == false) {
-                    throw new Exception("Email Không Hợp Lệ.");
+                    throw new \Exception("Email Không Hợp Lệ.");
                 }
+                if ($userservice->GetByEmail($Modeluser["Email"]) != null) {
+                    throw new \Exception("Email Đã Được Sử Dụng.");
+                }
+                /**
+                 * kiem tra username
+                 * @param {type} parameter
+                 */
                 $Modeluser["Username"] = \Model\Common::TextInput($userForm["Username"]);
                 if ($Modeluser["Username"] == "") {
-                    throw new Exception("Tài Khoản Không Để Trống.");
+                    throw new \Exception("Tài Khoản Không Để Trống.");
                 }
+                if ($userservice->GetByUsername($Modeluser["Username"]) != null) {
+                    throw new \Exception("Tài Khoản Đã Được Sử Dụng.");
+                }
+
+
                 $Modeluser["Active"] = intval($userForm["Active"]);
                 $Modeluser["Password"] = $userForm["CreatePassword"];
                 $Modeluser["Id"] = \Model\Common::uuid();
@@ -64,7 +84,7 @@ class quanlyusers extends \Application implements IControllerBE {
                 $Modeluser["DateCreate"] = date(\Model\Common::DateFomatDatabase(), time());
                 $Modeluser["TokenReset"] = "";
                 $Modeluser["Password"] = \Model\UserService::CreatePassword($Modeluser["Password"], $Modeluser["KeyPassword"]);
-                $userservice = new \Model\UserService();
+
                 $userservice->Post($Modeluser);
                 /**
                  * tạo tài khoản thành công
@@ -79,15 +99,92 @@ class quanlyusers extends \Application implements IControllerBE {
         $this->View();
     }
 
+    /**
+     * sửa tài khoản
+     * @param {type} parameter
+     */
     public function put() {
+
         \Model\Permission::Check([\Model\User::Admin, md5(quanlyusers::class . "_" . __FUNCTION__)]);
         $userService = new \Model\UserService();
+        if (isset($_POST[FormUser::$ElementsName])) {
+            try {
+                /**
+                 * thông tin cập nhật từ form
+                 * @param {type} parameter
+                 */
+                $modelUser = $_POST[FormUser::$ElementsName];
+                /**
+                 * user trong database
+                 * @param {type} parameter
+                 */
+                $itemDetail = $userService->GetById($modelUser["Id"]);
+                $itemDetail["Name"] = $modelUser["Name"];
+                $itemDetail["Active"] = $modelUser["Active"];
+                $itemDetail["BOD"] = \Model\Common::StrToDateDB($modelUser["BOD"]);
+                if ($itemDetail["Status"] == 0) {
+                    /**
+                     * có sửa email
+                     * @param {type} parameter
+                     */
+                    if ($itemDetail["Email"] != $modelUser["Email"]) {
+                        if ($userService->GetByEmail($modelUser["Email"])) {
+                            throw new \Exception("Email này đã có.");
+                        }
+                    }
+                    $itemDetail["Email"] = $modelUser["Email"];
+                }
+                $userService->Put($itemDetail);
+//            var_dump($itemDetail);
+//
+//            exit(); 
+            } catch (\Exception $exc) {
+                new \Model\Error(\Model\Error::danger, $exc->getMessage());
+            }
+        }
 
 
         $id = \Model\Common::TextInput($_GET["id"]);
         $user = $userService->GetById($id);
-        
         $this->View(["user" => $user]);
+    }
+
+    public function resetpassword() {
+//        b1: cập nhật mật khẩu
+//        
+
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyusers::class . "_put")]);
+        $userService = new \Model\UserService();
+        if (isset($_POST[FormUser::$ElementsName])) {
+            $itemPost = $_POST[FormUser::$ElementsName];
+            $id = $itemPost["Id"];
+            $itemDetail = $userService->GetById($id);
+            if ($itemDetail) {
+                $keypassword = $itemDetail["KeyPassword"];
+                $itemDetail["Password"] = \Model\UserService::CreatePassword($itemPost['CreatePassword'], $keypassword);
+                $userService->Put($itemDetail);
+            }
+        }
+//        
+//        b2 gửi mail
+//         b3: quay lại trang sửa
+        \Model\Error::SetError(\Model\Error::success, "Cập nhật mật khẩu thành công");
+        \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
+    }
+
+    /**
+     * phân quyền cho user
+     * @param {type} parameter
+     */
+    public function phanquyen() {
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyusers::class . "_put")]);
+        if (isset($_POST["Users"])) {
+            $danhSachRoles = $_POST["Rolesuser"];
+            $idUser = $_POST["Users"]["Id"];
+            $UserRoles = new \Model\UserRole(); 
+            $UserRoles->UpdateByUserId($idUser, $danhSachRoles);
+        }
+        \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
     }
 
     function showkey() {

@@ -25,7 +25,12 @@ class FormUser implements IFormUsers {
     }
 
     public static function BOD($val = null) {
-        
+        $properties = self::$properties;
+        $properties["value"] = $val;
+        $properties["max"] = date("Y-m-d", time());
+//        $properties["max"] = date("Y-m-d", time()-(18*365*24*3600));
+        $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
+        return new FormRender(new Element\Date("Ngày Sinh", $name, $properties));
     }
 
     public static function DateCreate($val = null) {
@@ -42,7 +47,8 @@ class FormUser implements IFormUsers {
     }
 
     public static function Id($val = null) {
-        
+        $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
+        return new FormRender(new Element\Hidden($name, $val));
     }
 
     public static function KeyPassword($val = null) {

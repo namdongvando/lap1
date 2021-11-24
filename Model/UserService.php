@@ -24,7 +24,8 @@ class UserService extends DB implements IModelService {
     }
 
     public function Put($model) {
-        
+        $where = "`Id` = '{$model["Id"]}'";
+        return $this->Update($model, $where);
     }
 
     public function GetUserByUsernamPassword($userName, $password) {
@@ -48,6 +49,16 @@ class UserService extends DB implements IModelService {
     static public function CreatePassword($password, $keypassword) {
         $password = $keypassword . $password . $keypassword;
         return sha1($password);
+    }
+
+    public function GetByUsername($username) {
+        $where = "`Username` = '{$username}'";
+        return $this->SelectRow($where);
+    }
+
+    public function GetByEmail($email) {
+        $where = "`Email` = '{$email}'";
+        return $this->SelectRow($where);
     }
 
 }

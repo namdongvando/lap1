@@ -7,7 +7,7 @@ class quanlyquyen extends \Application implements IControllerBE {
     public function __construct() {
         new backend();
         self::$_Theme = "backend";
-        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class."_view")]);
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class . "_view")]);
     }
 
     function index() {
@@ -29,7 +29,7 @@ class quanlyquyen extends \Application implements IControllerBE {
     }
 
     public function delete() {
-        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class."_".__FUNCTION__)]);
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class . "_" . __FUNCTION__)]);
         // chặn và kiểm tra quyền
         try {
             $Id = \Model\Common::TextInput($_GET["id"]);
@@ -46,8 +46,8 @@ class quanlyquyen extends \Application implements IControllerBE {
     }
 
     public function post() {
-        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class."_".__FUNCTION__)]);
-        
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class . "_" . __FUNCTION__)]);
+
         $role = new \Model\Role();
 
         if (isset($_POST["Id"])) {
@@ -86,8 +86,13 @@ class quanlyquyen extends \Application implements IControllerBE {
         $this->View();
     }
 
+    public function install() {
+        \Model\Role::Install();
+        \Model\Common::ToUrl("/index.php?controller=quanlyquyen");
+    }
+
     public function put() {
-         \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class."_".__FUNCTION__)]);
+        \Model\Permission::Check([\Model\User::Admin, md5(quanlyquyen::class . "_" . __FUNCTION__)]);
         $role = new \Model\Role();
 
         if (isset($_POST["Id"])) {

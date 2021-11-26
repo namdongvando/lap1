@@ -121,4 +121,47 @@ BTNSUA;
         return date(Common::DateFomatView(), strtotime($this->BOD));
     }
 
+    static function danhSachQuyen() {
+        $data["post"] = [
+            "Id" => md5(quanlyusers::class . "_post"),
+            "Name" => "Thêm",
+            "Des" => "Module Quản Lý Tài Khoản",
+        ];
+        $data["put"] = [
+            "Id" => md5(quanlyusers::class . "_put"),
+            "Name" => "Sửa",
+            "Des" => "Module Quản Lý Tài Khoản",
+        ];
+        $data["delete"] = [
+            "Id" => md5(quanlyusers::class . "_delete"),
+            "Name" => "Xóa",
+            "Des" => "Module Quản Lý Tài Khoản",
+        ];
+        $data["view"] = [
+            "Id" => md5(quanlyusers::class . "_view"),
+            "Name" => "Xem",
+            "Des" => "Module Quản Lý Tài Khoản",
+        ];
+
+        return $data;
+    }
+
+    public static function Install() {
+        /**
+         * cài đat role
+         * @param {type} parameter
+         */
+        try {
+            $dsRole = self::danhSachQuyen();
+            $modelRole = new Role();
+            foreach ($dsRole as $role) {
+                $role["IsNotDelete"] = 0;
+                $modelRole->Post($role);
+            }
+        } catch (\Exception $exc) {
+            echo $exc->getMessage();
+        }
+        
+    }
+
 }

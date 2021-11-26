@@ -66,7 +66,7 @@ class Role extends DB implements IModelService {
      * @param {type} parameter
      */
     public function btnSua() {
-        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_put")]) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class . "_put")]) == false) {
             return;
         }
 
@@ -82,7 +82,7 @@ BTNSUA;
      * @param {type} parameter
      */
     public function btnXoa() {
-        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_delete")]) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class . "_delete")]) == false) {
             return;
         }
         $btn = <<<BTNSUA
@@ -93,7 +93,7 @@ BTNSUA;
     }
 
     public static function btnThem() {
-        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class."_post")]) == false) {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\quanlyquyen::class . "_post")]) == false) {
             return;
         }
         $btn = <<<BTNSUA
@@ -102,6 +102,48 @@ BTNSUA;
 BTNSUA;
         return $btn;
         //
+    }
+
+    function danhSachQuyen() {
+        $data["post"] = [
+            "Id" => md5(quanlyquyen::class . "_post"),
+            "Name" => "Thêm",
+            "Des" => "Module Quản Lý Quyền",
+        ];
+        $data["put"] = [
+            "Id" => md5(quanlyquyen::class . "_put"),
+            "Name" => "Sửa",
+            "Des" => "Module Quản Lý Quyền",
+        ];
+        $data["delete"] = [
+            "Id" => md5(quanlyquyen::class . "_delete"),
+            "Name" => "Xóa",
+            "Des" => "Module Quản Lý Quyền",
+        ];
+        $data["view"] = [
+            "Id" => md5(quanlyquyen::class . "_view"),
+            "Name" => "Xem",
+            "Des" => "Module Quản Lý Quyền",
+        ];
+
+        return $data;
+    }
+
+    public static function Install() {
+        /**
+         * cài đat role
+         * @param {type} parameter
+         */
+        try {
+            $dsRole = self::danhSachQuyen();
+            $modelRole = new Role();
+            foreach ($dsRole as $role) {
+                $role["IsNotDelete"] = 0;
+                $modelRole->Post($role);
+            }
+        } catch (\Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
 }

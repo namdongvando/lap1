@@ -68,8 +68,7 @@ class profile extends \Application {
 
                 if ($repassword != $newpassword) {
                     throw new \Exception("Mật khẩu mới không khớp");
-                }
-
+                } 
                 // có thể cập nhật mật khẩu
 
                 $id = \Model\User::CurentUser()->Id;

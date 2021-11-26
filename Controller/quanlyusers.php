@@ -181,18 +181,20 @@ class quanlyusers extends \Application implements IControllerBE {
         if (isset($_POST["Users"])) {
             $danhSachRoles = $_POST["Rolesuser"];
             $idUser = $_POST["Users"]["Id"];
-            $UserRoles = new \Model\UserRole(); 
+            $UserRoles = new \Model\UserRole();
             $UserRoles->UpdateByUserId($idUser, $danhSachRoles);
         }
         \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
     }
 
     function showkey() {
-        $data["post"] = md5(quanlyusers::class . "_post");
-        $data["put"] = md5(quanlyusers::class . "_put");
-        $data["delete"] = md5(quanlyusers::class . "_delete");
-        $data["view"] = md5(quanlyusers::class . "_view");
+        $data = \Model\User::danhSachQuyen();
         $this->View($data);
+    }
+
+    function install() {
+        \Model\User::Install();
+        \Model\Common::ToUrl("/index.php?controller=quanlyusers");
     }
 
 }

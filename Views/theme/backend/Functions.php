@@ -2,6 +2,8 @@
 
 namespace Views\theme\backend;
 
+use Module\quanlysanpham\Model\btnHtml;
+
 class Functions {
 
     function __construct() {
@@ -72,6 +74,8 @@ class Functions {
         <script src="/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <!-- Slimscroll -->
         <script src="/public/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="/public/ckfinder/ckfinder.js" type="text/javascript"></script>
+        <script src="/public/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
         <!-- FastClick -->
         <script src="/public/plugins/fastclick/fastclick.min.js"></script>
         <!-- AdminLTE App -->
@@ -81,6 +85,8 @@ class Functions {
         <script src="/public/dist/js/pages/dashboard.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="/public/dist/js/demo.js"></script> 
+        
+        
 
         <?php
     }
@@ -508,7 +514,7 @@ class Functions {
     }
 
     public static function leftaside() {
-         $user = \Model\User::CurentUser();
+        $user = \Model\User::CurentUser();
         ?> 
         <!-- Left side column. contains the logo and sidebar -->
         <aside class=" main-sidebar">
@@ -538,20 +544,25 @@ class Functions {
                         </ul>
                     </li>
 
-                    <li class="<?php echo \Application::$_Controller == "quanlytin" ? 'active' : '' ?> hidden treeview">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Quản Lý Bài Viết</span> <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active"><a href="/index.php?controller=quanlytin&action=index">
-                                    <i class="fa fa-circle-o"></i>Danh Sách Bài Viết</a>
-                            </li>
-                            <li><a href="/index.php?controller=quanlytin&action=post">
-                                    <i class="fa fa-circle-o"></i> Thêm Mới</a>
-                            </li>
-                        </ul>
-                    </li>
                     <?php
+                    if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_view"]) == true) {
+                        ?>
+
+                        <li class="<?php echo \Application::$_Module == "quanlysanpham" ? 'active' : '' ?> treeview">
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>Quản Lý Sản Phẩm</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php
+                                btnHtml::btnThemSanPham();
+                                btnHtml::btnViewSanPham();
+                                btnHtml::btnViewDanhMuc();
+                                btnHtml::btnViewOptions();
+                                ?> 
+                            </ul>
+                        </li> 
+                        <?php
+                    }
                     if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyquyen::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyquyen" ? 'active' : '' ?> treeview">
@@ -563,7 +574,7 @@ class Functions {
                     }
                     ?> 
                     <?php
-                    if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyusers::class."_view")]) == true) {
+                    if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyusers::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyusers" ? 'active' : '' ?> treeview">
                             <a href="/index.php?controller=quanlyusers">

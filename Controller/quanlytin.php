@@ -24,6 +24,7 @@ class quanlytin extends \Application implements IControllerBE {
     }
 
     public function post() {
+
         $this->View();
     }
 

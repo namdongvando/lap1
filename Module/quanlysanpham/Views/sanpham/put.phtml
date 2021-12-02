@@ -1,0 +1,71 @@
+<ol class="breadcrumb" >
+    <li><a href="/index.php?controller=backend" >Home</a></li>
+    <li><a href="/index.php?module=quanlysanpham&controller=sanpham&action=index" >Danh Sách Sản Phẩm</a></li>
+    <li> Sửa </li>
+</ol>
+<?php
+
+use Module\quanlysanpham\Model\SanPham\FormSanPham;
+
+$_item = new Module\quanlysanpham\Model\SanPham($item);
+?>
+<div  class="container-fluid" >
+    <form action="" method="post">
+        <div class="box box-primary" > 
+            <div class="box-body" >
+                <div class="col-md-8" >
+
+                    <?php
+                    FormSanPham::Name($_item->Name)->renderHTML();
+                    ?>
+
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#MoTa" aria-controls="home" role="tab" data-toggle="tab">Mô Tả Ngắn</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#Content" aria-controls="tab" role="tab" data-toggle="tab">Mô Tả Sản Phẩm</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#SEO" aria-controls="tab" role="tab" data-toggle="tab">SEO</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="MoTa">
+                                <?php
+                                FormSanPham::Summary($_item->Summary)->renderHTML()
+                                ?>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Content">
+                                <?php
+                                FormSanPham::Content($_item->Content)->renderHTML()
+                                ?>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="SEO">
+                                <?php
+                                FormSanPham::Des($_item->Des)->renderHTML();
+                                FormSanPham::Title($_item->Title)->renderHTML();
+                                FormSanPham::Keyword($_item->Keyword)->renderHTML();
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <?php
+                    FormSanPham::DanhMucId($_item->DanhMucId)->renderHTML();
+                    FormSanPham::UrlImages($_item->UrlImages)->renderHTML();
+                    ?>
+                    <button type="button" onclick="BrowseServer('UrlImages')" >Chọn Hình</button>
+                </div>
+            </div>
+            <div class="box-footer" >
+                <input type="submit" class="btn btn-success" name="Luu" value="Lưu" />
+            </div>
+        </div>    
+    </form>    
+</div>

@@ -38,11 +38,11 @@ class Application {
         $controller = self::$_Controller;
         $action = self::$_Action;
         $theme = self::$_Theme;
-        $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
+         $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
         $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
         if ($_module) {
             $_Content = __DIR__ . "/Module/{$_module}/Views/{$controller}/{$action}.phtml";
-        }
+        } 
         include __DIR__ . "/Views/theme/{$theme}/layout{$_layout}.phtml";
     }
 

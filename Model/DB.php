@@ -8,7 +8,7 @@ class DB {
     public static $Debug;
     private static $Connect;
 
-    public function __construct() { 
+    public function __construct() {
         if (self::$Connect == null) {
             global $INI;
             $_conn = mysqli_connect($INI['host'], $INI['username'], $INI['password'], $INI['DBname']) or mysqli_errno("Can't connect database");
@@ -24,7 +24,7 @@ class DB {
         $res = self::$Connect->query($sql);
         $a = [];
         if ($res) {
-            while ($row = $res->fetch_assoc()) {
+            while ($row = $res->fetch_array()) {
                 $a[] = $row;
             }
         }
@@ -60,6 +60,7 @@ class DB {
 
     // lấy 1 dòng
     public function SelectRow($where, $col = []) {
+
         $TableName = self::$TableName;
         $sql = "SELECT * FROM `{$TableName}` WHERE {$where}";
         if ($col) {
@@ -67,6 +68,11 @@ class DB {
             $sql = "SELECT `{$strCol}` FROM `{$TableName}` WHERE {$where}";
         }
         return $this->GetRow($sql);
+    }
+
+    public function SelectById($Id, $col = []) {
+        $where = "`Id` = '{$Id}'";
+        return $this->SelectRow($where, $col);
     }
 
     public function GetToSelect($where, $col) {
@@ -91,6 +97,11 @@ class DB {
     }
 
     // sửa
+
+    /**
+     * sửa dữ liệu trong databse
+     * @param {type} parameter
+     */
     public function Update($model, $where) {
         $TableName = self::$TableName;
         $strsql = "";
@@ -111,13 +122,25 @@ class DB {
         return self::$Connect;
     }
 
+    function UpdateRow($model) {
+        $where = " `Id` = '{$model["Id"]}' ";
+        return $this->Update($model, $where);
+    }
+
     // xóa data base
 
     public function DeleteDB($where) {
         $TableName = self::$TableName;
         $sql = "DELETE FROM `{$TableName}` WHERE {$where}";
+         if (self::$Debug == TRUE)
+                echo $sql;
         self::$Connect->query($sql);
         return self::$Connect;
+    }
+
+    public function DeleteById($id) {
+        $where = " `Id` = '{$id}' ";
+        $this->DeleteDB($where);
     }
 
     //  Them6
@@ -152,6 +175,19 @@ class DB {
             }
         }
         return $a;
+    }
+
+    public function SelectToOptions($where, $columns) {
+        $a = (array) $this->Select($where, $columns);
+        $d = [];
+        foreach ($a as $value) {
+            if (isset($columns[2])) {
+                $d[$value[$columns[0]]] = $value[$columns[1]] . " _ " . $value[$columns[2]];
+            } else {
+                $d[$value[$columns[0]]] = $value[$columns[1]];
+            }
+        }
+        return $d;
     }
 
 }

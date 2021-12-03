@@ -75,7 +75,7 @@ class Functions {
         <!-- Slimscroll -->
         <script src="/public/plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="/public/ckfinder/ckfinder.js" type="text/javascript"></script>
-        <script src="/public/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="/public/ckeditor/ckeditor.js" type="text/javascript"></script>
         <!-- FastClick -->
         <script src="/public/plugins/fastclick/fastclick.min.js"></script>
         <!-- AdminLTE App -->

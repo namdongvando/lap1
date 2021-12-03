@@ -45,9 +45,41 @@ class sanpham extends \Application implements \Controller\IControllerBE {
 
     public function put() {
         \Model\Permission::Check([\Model\User::Admin, "quanlysanpham_sanpham_put"]);
+        $SanPham = new \Module\quanlysanpham\Model\SanPham();
+        if (\Model\Request::Post(FormSanPham::$ElementsName, null)) {
+            $itemHtml = \Model\Request::Post(FormSanPham::$ElementsName, null);
+
+            $id = $itemHtml["Id"];
+            $item = $SanPham->GetById($id);
+            $item['Name'] = \Model\Common::TextInput($itemHtml["Name"]);
+            if (\Model\Request::Post("KhoaAlias", null) == null) {
+                $item['Alias'] = \Model\Common::BoDauTienViet($itemHtml["Name"]);
+            }
+            $item['Content'] = \Model\Common::TextInput($itemHtml["Content"]);
+            $itemHtml["Price"] = str_replace(",", "", $itemHtml["Price"]);
+            $item['Price'] = intval($itemHtml["Price"]);
+            $itemHtml["oldPrice"] = str_replace(",", "", $itemHtml["oldPrice"]);
+
+            $item['oldPrice'] = intval($itemHtml["oldPrice"]);
+            $itemHtml["Number"] = str_replace(",", "", $itemHtml["Number"]);
+            $item['Number'] = intval($itemHtml["Number"]);
+            $item['isShow'] = intval($itemHtml["isShow"]);
+            $item['STT'] = intval($itemHtml["STT"]);
+            $item['STT'] = min($item['STT'], time());
+            $item['Lang'] = $itemHtml["Lang"];
+            $item['Views'] = $itemHtml["Views"];
+            $item['BuyTimes'] = $itemHtml["BuyTimes"];
+            $item['DanhMucId'] = \Model\Common::TextInput($itemHtml["DanhMucId"]);
+            $item['Summary'] = \Model\Common::TextInput($itemHtml["Summary"]);
+            $item['Des'] = strip_tags(\Model\Common::TextInput($itemHtml["Des"]));
+            $item['Keyword'] = strip_tags(\Model\Common::TextInput($itemHtml["Keyword"]));
+            $item['UrlImages'] = strip_tags(\Model\Common::TextInput($itemHtml["UrlImages"]));
+            $item['Title'] = strip_tags(\Model\Common::TextInput($itemHtml["Title"]));
+            $SanPham->Put($item);
+        }
+
 
         $id = \Model\Request::Get("id", null);
-        $SanPham = new \Module\quanlysanpham\Model\SanPham();
         $item = $SanPham->GetById($id);
 
         $this->View(["item" => $item]);

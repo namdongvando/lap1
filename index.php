@@ -4,8 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include './config.php';
-include './vendor/autoload.php';
-
+include './vendor/autoload.php'; 
 $_module = isset($_GET["module"]) ? $_GET["module"] : null;
 if ($_module) {
     Application::SetModule($_module);

@@ -6,9 +6,9 @@ ob_start();
 spl_autoload_register(function($className) {
     $className = str_replace("\\", "/", $className);
     $className = str_replace("_", "/", $className);
-    $className = "{$className}.php";
+    $className = __DIR__."/{$className}.php";
     if (file_exists($className)) {
-        include $className;
+        include_once $className;
     }
 //    echo "___".$className; 
 });

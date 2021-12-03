@@ -100,7 +100,11 @@ class SanPham extends \Model\DB implements \Model\IModelService {
     }
 
     public function Put($model) {
-        
+        return $this->UpdateRow($model);
+    }
+
+    public function Content() {
+        return htmlspecialchars_decode($this->Content);
     }
 
 }

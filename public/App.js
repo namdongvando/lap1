@@ -38,16 +38,41 @@ $(function () {
     } catch (e) {
         console.log(e);
     }
+    try {
+//        lưu tag cuối cùng
+        var lastTag = sessionStorage.getItem("nav-tabs");
+        if(lastTag){
+            $(".tab-content .tab-pane").removeClass("active");
+            $(".nav-tabs li").removeClass("active");
+            $(".nav-tabs li a[href="+lastTag+"]").parent("li").addClass("active");
+            
+            console.log(lastTag);
+            $(lastTag).addClass("active");
+        }    
+        $(".nav-tabs li a").click(function () {
+            var lastTag = $(this).attr("href");
+            sessionStorage.setItem("nav-tabs", lastTag);
+
+        });
+    } catch (e) {
+
+    }
 
 });
 
-function BrowseServer(idInput)
+function BrowseServer(idInput, thumnai)
 {
     // You can use the "CKFinder" class to render CKFinder in a page:
     var finder = new CKFinder();
     finder.basePath = '../';	// The path for the installation of CKFinder (default = "/ckfinder/").
     finder.selectActionFunction = function (fileUrl) {
         document.getElementById(idInput).value = fileUrl;
+        try {
+            document.getElementById(thumnai).src = fileUrl;
+        } catch (e) {
+
+        }
+
     };
     finder.popup();
 

@@ -50,7 +50,7 @@ class User {
      */
     public function CheckPremision($Allows, $delines = []) {
         $roles = $this->GetRole();
-        foreach ($roles as $role) {
+         foreach ($roles as $role) {
             foreach ($delines as $deline) {
                 if ($deline == $role["RoleId"]) {
                     return false;
@@ -123,22 +123,22 @@ BTNSUA;
 
     static function danhSachQuyen() {
         $data["post"] = [
-            "Id" => md5(quanlyusers::class . "_post"),
+            "Id" => md5(\Controller\quanlyusers::class . "_post"),
             "Name" => "Thêm",
             "Des" => "Module Quản Lý Tài Khoản",
         ];
         $data["put"] = [
-            "Id" => md5(quanlyusers::class . "_put"),
+            "Id" => md5(\Controller\quanlyusers::class . "_put"),
             "Name" => "Sửa",
             "Des" => "Module Quản Lý Tài Khoản",
         ];
         $data["delete"] = [
-            "Id" => md5(quanlyusers::class . "_delete"),
+            "Id" => md5(\Controller\quanlyusers::class . "_delete"),
             "Name" => "Xóa",
             "Des" => "Module Quản Lý Tài Khoản",
         ];
         $data["view"] = [
-            "Id" => md5(quanlyusers::class . "_view"),
+            "Id" => md5(\Controller\quanlyusers::class . "_view"),
             "Name" => "Xem",
             "Des" => "Module Quản Lý Tài Khoản",
         ];

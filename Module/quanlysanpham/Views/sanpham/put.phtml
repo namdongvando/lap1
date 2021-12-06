@@ -9,7 +9,8 @@ use Module\quanlysanpham\Model\SanPham\FormSanPham;
 
 $_item = new Module\quanlysanpham\Model\SanPham($item);
 ?>
-<div  class="container-fluid" >
+<script src="/Module/quanlysanpham/public/AppSanPham.js?v=<?php echo filemtime('Module/quanlysanpham/public/AppSanPham.js'); ?>" type="text/javascript"></script>
+<div  class="container-fluid" ng-controller="SanPhamPut" ng-init="SanPhamPutInit('<?php echo $_GET["id"]; ?>')" >
     <form action="" method="post">
         <div class="box box-primary" > 
             <div class="box-header" >
@@ -18,8 +19,7 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                 </div>
             </div>
             <div class="box-body" >
-                <div class="col-md-9" >
-
+                <div class="col-md-9" > 
                     <?php
                     FormSanPham::Id($_item->Id)->render();
                     FormSanPham::Name($_item->Name)->renderHTML();
@@ -59,45 +59,100 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#MoTa" aria-controls="MoTa" role="tab" data-toggle="tab">Mô Tả Ngắn</a>
+                                <a href="#MoTa" target="_self" aria-controls="MoTa" role="tab" data-toggle="tab">Mô Tả Ngắn</a>
                             </li>
                             <li role="presentation">
-                                <a href="#Content" aria-controls="Content" role="tab" data-toggle="tab">Mô Tả Sản Phẩm</a>
+                                <a href="#Content"  target="_self" aria-controls="Content" role="tab" data-toggle="tab">Mô Tả Sản Phẩm</a>
                             </li>
                             <li role="presentation">
-                                <a href="#SEO" aria-controls="SEO" role="tab" data-toggle="tab">SEO</a>
+                                <a href="#SEO" target="_self" aria-controls="SEO" role="tab" data-toggle="tab">SEO</a>
                             </li>
                             <li role="presentation">
-                                <a href="#ThuocTinh" aria-controls="Other" role="tab" data-toggle="tab">Thuộc Tính</a>
+                                <a href="#ThuocTinh" target="_self" aria-controls="Other" role="tab" data-toggle="tab">Thuộc Tính</a>
                             </li>
                             <li role="presentation">
-                                <a href="#Other" aria-controls="Other" role="tab" data-toggle="tab">Khác</a>
+                                <a href="#ThongTinBanHang" target="_self" aria-controls="Other" role="tab" data-toggle="tab">Thông Tin Bán Hàng</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#Other" target="_self" aria-controls="Other" role="tab" data-toggle="tab">Khác</a>
                             </li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane  " id="ThuocTinh">
-                                <!--danh sach thuoc tinh sản phẩm--> 
-                                <div class="list-group" >
+                            <div role="tabpanel" class="tab-pane  " id="ThuocTinh"> 
+                                <div class="row" >
 
-                                    <?php
-                                    $SPTT = new Module\quanlysanpham\Model\SanPhamThuocTinh();
-                                    $itemTT = $SPTT->GetItems("", 1, 1000, $total);
-                                    foreach ($itemTT as $value) {
-                                        ?> 
-                                        <div class="list-group-item" >
-                                            <label>
-                                                <input  type="checkbox" >
-                                                <?php echo $value["Name"]; ?>
-                                            </label>
+                                    <div class="col-md-6" > 
+                                        <p>Các Thuộc Tinh Đang Dùng</p>
+                                        <div class="list-group" >
+                                            <div class="list-group-item" ng-repeat="item1 in _DSThuocTinhSanPham" >
+                                                <label>{{item1.LoaiThuocTinh.Name}}</label>
+                                                <div class="pull-right" > 
+                                                    <button type="button" ng-click="XoaThuocTinhSanPham(item1.Id)" >Xóa</button> 
+                                                </div>
+                                            </div>
                                         </div>
-                                        <?php
-                                    }
-                                    ?>
+                                    </div>
+                                    <div class="col-md-6" >
+                                        <p>Danh Sách Thuộc Tính</p>
+                                        <div class="list-group" >
+                                            <div class="list-group-item" ng-repeat="item in _DSThuocTinh" >
+                                                <label>{{item.Name}}</label>
+                                                <div class="pull-right" >
+                                                    <button type="button" ng-click="ThemThuocTinhSanPham(item.Id)" >Thêm</button> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" >
+                                        <table class="table" >
+                                            <tr>
+                                                <td><label>Tên Thuộc Tinh</label></td>
+                                                <td><label>Loại Thuộc Tinh</label></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group" >  
+                                                        <input ng-model="ThuocTinhChiTiet.TenThuocTinh" class="form-control" type="type"  >
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" > 
+
+                                                        <select class="form-control" ng-model="ThuocTinhChiTiet.LoaiThuocTinh" >
+                                                            <option ng-repeat="item1 in _DSThuocTinhSanPham" value="{{item1.Id}}" >{{item1.LoaiThuocTinh.Name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-success" ng-click="ThemThuocTinhChiTiet(ThuocTinhChiTiet)" type="button" >Thêm</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table class="table" >
+                                            <tr>
+                                                <td>Tên Thuộc Tinh</td>
+                                                <td>Loại Thuộc Tinh</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr  ng-repeat="item in _DanhSachThuocTinhChiTiet" >
+                                                <td>{{item.Name}}</td>
+                                                <td>{{item.ThuocTinh.LoaiThuocTinh.Name}}</td>
+                                                <td><button ng-click="XoaThuocTinhChiTiet(item.Id)" type="button" >Xóa</button></td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane active" id="MoTa">
+                            
+                            
+                            <div role="tabpanel" class="tab-pane  " id="ThongTinBanHang">
+                            </div>
+                                <div role="tabpanel" class="tab-pane active" id="MoTa">
                                 <?php
                                 FormSanPham::Summary($_item->Summary)->renderHTML()
                                 ?>

@@ -29,14 +29,12 @@ class Role extends DB implements IModelService {
         }
         $modelRole = new Role();
         DB::$Debug = true;
-        $roledetail = $modelRole->GetById($Id);
-
+        $roledetail = $modelRole->GetById($Id); 
         // cấu hình không cho xóa
         if ($roledetail["IsNotDelete"] == 1) {
             return null;
         }
-        $where = "`Id` = '{$Id}'";
-
+        $where = "`Id` = '{$Id}'"; 
         return $modelRole->DeleteDB($where);
     }
 
@@ -106,22 +104,22 @@ BTNSUA;
 
     function danhSachQuyen() {
         $data["post"] = [
-            "Id" => md5(quanlyquyen::class . "_post"),
+            "Id" => md5(\Controller\quanlyquyen::class . "_post"),
             "Name" => "Thêm",
             "Des" => "Module Quản Lý Quyền",
         ];
         $data["put"] = [
-            "Id" => md5(quanlyquyen::class . "_put"),
+            "Id" => md5(\Controller\quanlyquyen::class . "_put"),
             "Name" => "Sửa",
             "Des" => "Module Quản Lý Quyền",
         ];
         $data["delete"] = [
-            "Id" => md5(quanlyquyen::class . "_delete"),
+            "Id" => md5(\Controller\quanlyquyen::class . "_delete"),
             "Name" => "Xóa",
             "Des" => "Module Quản Lý Quyền",
         ];
         $data["view"] = [
-            "Id" => md5(quanlyquyen::class . "_view"),
+            "Id" => md5(\Controller\quanlyquyen::class . "_view"),
             "Name" => "Xem",
             "Des" => "Module Quản Lý Quyền",
         ];

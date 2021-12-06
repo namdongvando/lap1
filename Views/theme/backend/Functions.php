@@ -40,13 +40,18 @@ class Functions {
         <link rel="stylesheet"  href="/public/plugins/daterangepicker/daterangepicker-bs3.css">
         <link rel="stylesheet"  href="/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <link href="/public/App.css?v=<?php echo filemtime("public/App.css"); ?>" rel="stylesheet" type="text/css"/>
+        <script src="/public/Ang1/angular.min.js" type="text/javascript"></script>
+        <script src="/public/Ang1/angular-sanitize.min.js" type="text/javascript"></script>
+        <script src="/public/Ang1/angular-route.min.js" type="text/javascript"></script>
+        <script src="/public/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="/public/Ang1/App.js?v=<?php echo filemtime("public/Ang1/App.js"); ?>" type="text/javascript"></script>
         <?php
     }
 
     public static function js() {
         ?> 
         <!-- jQuery 2.1.4 -->
-        <script src="/public/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
         <!-- jQuery UI 1.11.4 -->
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -56,8 +61,7 @@ class Functions {
         <!-- Bootstrap 3.3.5 -->
         <script src="/public/bootstrap/js/bootstrap.min.js"></script>
         <!-- Morris.js charts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="/public/plugins/morris/morris.min.js"></script>
+
         <!-- Sparkline -->
         <script src="/public/plugins/sparkline/jquery.sparkline.min.js"></script>
         <!-- jvectormap -->
@@ -82,11 +86,11 @@ class Functions {
         <script src="/public/dist/js/app.min.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="/public/App.js?v=<?php echo filemtime("public/App.js"); ?>" type="text/javascript"></script>
-        <script src="/public/dist/js/pages/dashboard.js"></script>
+        <script src="/public/dist/js/pages/dashboard.js?v=1"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="/public/dist/js/demo.js"></script> 
-        
-        
+
+
 
         <?php
     }

@@ -39,10 +39,11 @@ class quanlyquyen extends \Application implements IControllerBE {
                 throw new \Exception("Role này không thể xóa");
             }
             new \Model\Error(\Model\Error::success, "Xóa thành công");
-            \Model\Common::ToUrl("/index.php?controller=quanlyquyen");
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             new \Model\Error(\Model\Error::danger, "Xóa không thành công");
         }
+
+        \Model\Common::ToUrl("/index.php?controller=quanlyquyen");
     }
 
     public function post() {

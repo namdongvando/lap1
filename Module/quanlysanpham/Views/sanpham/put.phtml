@@ -84,26 +84,33 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                                 <div class="row" >
 
                                     <div class="col-md-6" > 
-                                        <p>Các Thuộc Tinh Đang Dùng</p>
-                                        <div class="list-group" >
-                                            <div class="list-group-item" ng-repeat="item1 in _DSThuocTinhSanPham" >
-                                                <label>{{item1.LoaiThuocTinh.Name}}</label>
-                                                <div class="pull-right" > 
-                                                    <button type="button" ng-click="XoaThuocTinhSanPham(item1.Id)" >Xóa</button> 
-                                                </div>
+                                        <div class="box box-primary" >
+                                            <div class="box-header" >
+                                                <h3 class="box-title" >Thuộc Tính 1</h3> 
+                                            </div>
+                                            <div class="box-body" >
+                                                <select ng-change="CapNhatThuocTinhOptions(SPO1, 1, _SanPham.Id)" ng-model="SPO1" class="form-control" >
+                                                    <option value="0" >Không Chọn</option>
+                                                    <option ng-repeat="item in _DSThuocTinh" value="{{item.Id}}" >{{item.Name}}</option>
+                                                </select>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="col-md-6" >
-                                        <p>Danh Sách Thuộc Tính</p>
-                                        <div class="list-group" >
-                                            <div class="list-group-item" ng-repeat="item in _DSThuocTinh" >
-                                                <label>{{item.Name}}</label>
-                                                <div class="pull-right" >
-                                                    <button type="button" ng-click="ThemThuocTinhSanPham(item.Id)" >Thêm</button> 
-                                                </div>
+                                        <div class="box box-primary" ng-show="SPO1 != '0'" >
+                                            <div class="box-header" >
+                                                <h3 class="box-title" >Thuộc Tính 2</h3> 
+                                            </div>
+                                            <div class="box-body" >
+
+                                                <select ng-change="CapNhatThuocTinhOptions(SPO2, 2, _SanPham.Id)" ng-model="SPO2" class="form-control" >
+                                                    <option value="0" >Không Chọn</option>
+                                                    <option ng-repeat="item in _DSThuocTinh" value="{{item.Id}}" >{{item.Name}}</option>
+                                                </select>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="col-md-12" >
                                         <table class="table" >
@@ -123,7 +130,7 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                                                     <div class="form-group" > 
 
                                                         <select class="form-control" ng-model="ThuocTinhChiTiet.LoaiThuocTinh" >
-                                                            <option ng-repeat="item1 in _DSThuocTinhSanPham" value="{{item1.Id}}" >{{item1.LoaiThuocTinh.Name}}</option>
+                                                            <option ng-repeat="item1 in  _SanPham.Options" value="{{item1.Id}}" >{{item1.LoaiThuocTinh.Name}}</option>
                                                         </select>
                                                     </div>
                                                 </td>
@@ -148,11 +155,41 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div role="tabpanel" class="tab-pane  " id="ThongTinBanHang">
+                                <button type="button" ng-click="TaoThongTinBanHang(_SanPham.Id)" >Tao Thông Tin Bán Hàng</button>
+                                <table  class="table " >
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>Số Lượng </td>
+                                        <td>Giá</td>
+                                        <td>
+                                            <button class="btn btn-success" ng-click="LuuTatCaThongTinBanHang()" type="button" >
+                                                 Lưu
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="ttbh in _ThongTinBanHang track by $index" >
+                                        <td>{{ttbh.Option1Detail.Name}}</td>
+                                        <td>{{ttbh.Option2Detail.Name}}</td>
+                                        <td><input ng-model="ttbh.SoLuong" class="form-control"  ></td>
+                                        <td><input ng-model="ttbh.Gia" class="form-control"  ></td> 
+                                        <td>
+                                            <button ng-click="XoaThongTinBanHang(ttbh.Id)" class="btn btn-danger" type="button" >Xóa</button>
+                                            <button class="btn btn-success" ng-click="LuuThongTinBanHang(ttbh)" type="button" >
+                                                <i ng-show="_onLuuThongTinBanHang == ttbh.Id" class="fa fa-spin fa-spinner" ></i>
+                                                <i ng-show="_onLuuThongTinBanHang != ttbh.Id" class="fa fa-check" ></i>
+                                                Lưu
+                                            </button>
+                                        </td> 
+                                    </tr> 
+                                </table>
+
+
                             </div>
-                                <div role="tabpanel" class="tab-pane active" id="MoTa">
+                            <div role="tabpanel" class="tab-pane active" id="MoTa">
                                 <?php
                                 FormSanPham::Summary($_item->Summary)->renderHTML()
                                 ?>

@@ -67,4 +67,9 @@ class SanPhamThuocTinhChiTiet extends \Model\DB implements \Model\IModelService 
         return $this->Select($where);
     }
 
+    public function GetByIdThuocTinh($loaithuocTinh) {
+         $where = " `IdThuocTinh` = '{$loaithuocTinh}' ";
+        return $this->Select($where);
+    }
+
 }

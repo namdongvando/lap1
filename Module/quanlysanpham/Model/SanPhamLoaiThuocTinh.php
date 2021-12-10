@@ -4,6 +4,14 @@ namespace Module\quanlysanpham\Model;
 
 class SanPhamLoaiThuocTinh extends \Model\DB implements \Model\IModelService {
 
+    public $Id;
+    public $OptionsTypeId;
+    public $Options;
+    public $IdSanPham;
+    public $GhiChu;
+
+//`Id`, `OptionsTypeId`, `Options`, `IdSanPham`, `GhiChu`
+
     public function __construct($sp = null) {
         self::$TableName = prefixTable . "sanpham_options_type";
         parent::__construct();
@@ -14,9 +22,10 @@ class SanPhamLoaiThuocTinh extends \Model\DB implements \Model\IModelService {
             }
             if ($sp) {
                 $this->Id = isset($sp["Id"]) ? $sp["Id"] : null;
-                $this->Name = isset($sp["Name"]) ? $sp["Name"] : null;
-                $this->Code = isset($sp["Code"]) ? $sp["Code"] : null;
-                $this->Parents = isset($sp["Parents"]) ? $sp["Parents"] : null;
+                $this->OptionsTypeId = isset($sp["OptionsTypeId"]) ? $sp["OptionsTypeId"] : null;
+                $this->Options = isset($sp["Options"]) ? $sp["Options"] : null;
+                $this->IdSanPham = isset($sp["IdSanPham"]) ? $sp["IdSanPham"] : null;
+                $this->GhiChu = isset($sp["GhiChu"]) ? $sp["GhiChu"] : null;
             }
         }
     }
@@ -30,7 +39,7 @@ class SanPhamLoaiThuocTinh extends \Model\DB implements \Model\IModelService {
     }
 
     public function GetItems($name, $indexPage, $pageNumber, &$total) {
-        $where= "`Name` like '%$name%' or `Code` like '%$name%' ";
+        $where = "`Name` like '%$name%' or `Code` like '%$name%' ";
         return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 

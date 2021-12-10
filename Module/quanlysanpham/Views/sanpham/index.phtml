@@ -1,1 +1,111 @@
-view index
+<ol class="breadcrumb" >
+    <li><a href="/index.php?controller=backend" >Home</a></li>
+    <li> Danh Sách Sản Phẩm </li>
+</ol> 
+
+<div class="container-fluid" >
+    <form action="">
+        <div class="form-group-md " >
+            <div class="d-flex" >  
+                <label class="btn btn-default" >
+                    <i class="fa fa-filter" ></i>
+                    <input style="display:  none;" type="checkbox" ng-click="" ng-model="more" >
+                </label>
+                <input class="form-control " name="name" placeholder="Tên Sản Phẩm" type="type"  >
+                <button class="btn btn-success" ><i class="fa fa-search" ></i></button>
+            </div>
+        </div>
+        <div ng-show="more" >
+            <?php
+            \Model\FormCommon::Select("", "", Module\quanlysanpham\Model\DanhMuc::CapChaTpOptions(),
+                    [
+                        "style" => "max-width:150px;",
+                        "class" => "form-control",
+                        "value" => $pageNumber, 
+                    ]
+            )->render();
+            ?> 
+        </div>
+    </form>
+
+    <div class="box box-primary" >
+        <div class="box-header" >
+
+            <div class="box-tools" >
+                <?php
+                Module\quanlysanpham\Model\SanPham::btnPost();
+                ?>
+            </div>
+        </div>
+        <div class="box-body" >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-model="checkAll"  ></th>
+                        <th></th>
+                        <th>Hình</th>
+                        <th>Thông Tin Sản Phẩm</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($items as $key => $value) {
+                        $_item = new Module\quanlysanpham\Model\SanPham($value);
+                        ?> 
+                        <tr>
+                            <th><input type="checkbox" name="SanPham[<?php echo $_item->Id; ?>]" ng-model="checkAll"  ></th>
+                            <th></th>
+                            <th><img src="<?php echo $_item->UrlImages; ?>" style="height: 100px;" >  </th>
+                            <th>
+                                <p style="font-size: 20px;" ><?php echo $_item->Name; ?></p>
+                                <p>Danh Mục:<?php echo $_item->DanhMuc()->Name; ?></p>
+                                <p><i class="fa fa-cart-arrow-down" ></i> <?php echo $_item->BuyTimes; ?>
+                                    |
+                                    <i class="fa fa-eye" ></i><?php echo $_item->Views; ?></p>
+
+                            </th>
+                            <th><?php echo $_item->Price(); ?></th>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input type="checkbox" ng-model="checkAll"  ></th>
+                        <th></th>
+                        <th>Hình</th>
+                        <th>Thông Tin Sản Phẩm</th>
+                        <th>Giá</th>
+                    </tr>
+                </tfoot>
+            </table> 
+            <div class="box-footer" >
+                <div  class="d-flex"> 
+                    <?php
+                    \Model\FormCommon::Select("", "", [10, 20, 50, 100],
+                            [
+                                "style" => "max-width:150px;",
+                                "class" => "form-control",
+                                "value" => $pageNumber,
+                                "onchange" => "SoDongHienThi(this.value)",
+                            ]
+                    )->render();
+                    ?> 
+                    <?php
+                    $linkPhanTrang = "/index.php?module=quanlysanpham&controller=sanpham&action=index&keyword={$params["keyword"]}&indexPage=[i]&pageNumber={$pageNumber}";
+                    echo \Model\Common::PhanTrang($total, $indexPage, $pageNumber, $linkPhanTrang);
+                    ?> 
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+<script type="text/javascript" >
+    var SoDongHienThi = function (evalue) {
+        var linkPhanTrang = '/index.php?module=quanlysanpham&controller=sanpham&action=index&indexPage=1&pageNumber=[j]';
+        linkPhanTrang = linkPhanTrang.replace("[j]", evalue);
+        window.location.href = linkPhanTrang;
+    }
+</script>

@@ -6,7 +6,7 @@ class btnHtml {
 
     public function __construct() {
         
-    }
+    } 
 
     static function btnThemSanPham() {
         if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_them"]) == false) {
@@ -81,7 +81,7 @@ class btnHtml {
         }
         ?> 
         <a class="btn btn-danger" title="Bạn có muốn xóa danh mục này?" href="/index.php?module=quanlysanpham&controller=danhmuc&action=delete&id=<?php echo $id; ?>">
-           Xóa
+            Xóa
         </a> 
         <?php
     }

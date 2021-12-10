@@ -146,4 +146,8 @@ class Common {
         return $str;
     }
 
+    public static function ViewPrice($number) {
+        return number_format($number, 0, ".", ",") . " vnđ";
+    }
+
 }

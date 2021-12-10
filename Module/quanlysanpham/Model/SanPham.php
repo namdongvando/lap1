@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -91,8 +90,10 @@ class SanPham extends \Model\DB implements \Model\IModelService {
         return $this->SelectById($Id);
     }
 
-    public function GetItems($where, $indexPage, $pageNumber, &$total) {
-        
+    public function GetItems($params, $indexPage, $pageNumber, &$total) {
+        $name = isset($params["keyword"]) ? $params["keyword"] : '';
+        $where = " `Name` like '%{$name}%' ";
+        return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 
     public function Post($model) {
@@ -105,6 +106,63 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     public function Content() {
         return htmlspecialchars_decode($this->Content);
+    }
+
+    public function ToArray() {
+        $a["Id"] = $this->Id;
+        $a["Name"] = $this->Name;
+        $a["DanhMucId"] = $this->DanhMucId;
+        $a["DanhMuc"] = $this->DanhMuc();
+        $a["Options"] = $this->Options();
+        $a["Alias"] = $this->Alias;
+        $a["Username"] = $this->Username;
+        $a["Price"] = $this->Price;
+        $a["oldPrice"] = $this->oldPrice;
+        $a["UrlImages"] = $this->UrlImages;
+        $a["DateCreate"] = $this->DateCreate;
+        $a["Number"] = $this->Number;
+        $a["Note"] = $this->Note;
+        $a["BuyTimes"] = $this->BuyTimes;
+        $a["Views"] = $this->Views;
+        $a["isShow"] = $this->isShow;
+        $a["STT"] = $this->STT;
+        $a["Lang"] = $this->Lang;
+        return $a;
+    }
+
+    public function DanhMuc() {
+        return new DanhMuc($this->DanhMucId);
+    }
+
+    public function OptionsByIndex($index) {
+        $SanPhamThuocTinh = new SanPhamThuocTinh();
+//        \Model\DB::$Debug = true;
+        return new SanPhamThuocTinh($SanPhamThuocTinh->GetItemsByIdSanPhamOptionsIndex($this->Id, $index));
+    }
+
+    public function Options() {
+        $SanPhamThuocTinh = new SanPhamThuocTinh();
+        $items = $SanPhamThuocTinh->GetItemsByIdSanPham($this->Id);
+        foreach ($items as $k => $item) {
+            $SanPhamLoaiThuocTinh = new SanPhamLoaiThuocTinh();
+            $items[$k]["LoaiThuocTinh"] = $SanPhamLoaiThuocTinh->GetById($item["OptionsTypeId"]);
+        }
+        return $items;
+    }
+
+    public static function btnPost() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_them"]) == false) {
+            return;
+        }
+        ?> 
+        <a class="btn btn-success" href="/index.php?module=quanlysanpham&controller=sanpham&action=post">
+            <i class="fa fa-plus"></i>Thêm Mới
+        </a>
+        <?php
+    }
+
+    public function Price() {
+        return \Model\Common::ViewPrice($this->Price);
     }
 
 }

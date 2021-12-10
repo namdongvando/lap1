@@ -19,6 +19,7 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
     public $Id;
     public $OptionsTypeId;
     public $IdSanPham;
+    public $Options;
     public $GhiChu;
 
     public function __construct($sp = null) {
@@ -33,6 +34,7 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
                 $this->Id = isset($sp["Id"]) ? $sp["Id"] : null;
                 $this->OptionsTypeId = isset($sp["OptionsTypeId"]) ? $sp["OptionsTypeId"] : null;
                 $this->IdSanPham = isset($sp["IdSanPham"]) ? $sp["IdSanPham"] : null;
+                $this->Options = isset($sp["Options"]) ? $sp["Options"] : null;
                 $this->GhiChu = isset($sp["GhiChu"]) ? $sp["GhiChu"] : null;
             }
         }
@@ -73,9 +75,24 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
         return $data;
     }
 
+    function ThuocTinhChiTiet() {
+        $SanPTTCT = new SanPhamThuocTinhChiTiet();
+        return $SanPTTCT->GetByIdThuocTinh($this->Id);
+    }
+
     public function OptionsTypeId() {
         $LoaiTT = new SanPhamLoaiThuocTinh();
         return $LoaiTT->GetById($this->OptionsTypeId);
+    }
+
+    public function GetBySanPhamOptionsType($idSanPham, $optionsIndex) {
+        $where = "`IdSanPham`='{$idSanPham}' and `Options` = '{$optionsIndex}'";
+        return $this->SelectRow($where);
+    }
+
+    public function GetItemsByIdSanPhamOptionsIndex($idSanPham, $index) {
+        $where = "`IdSanPham`='{$idSanPham}' and `Options` = '{$index}'";
+        return $this->SelectRow($where);
     }
 
 }

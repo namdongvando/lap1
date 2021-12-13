@@ -71,7 +71,17 @@ class SanPham extends \Model\DB implements \Model\IModelService {
     }
 
     //put your code here
+
+    /**
+     * xóa sản phẩm
+     * @param {type} parameter
+     */
     public function Delete($Id) {
+        // xóa só lượng
+        $spsl = new SanPhamSoLuong();
+        $spsl->DeleteByIdSanPham($Id);
+        $spsl = new SanPhamThuocTinh();
+        $spsl->DeleteByIdSanPham($Id);
         
     }
 
@@ -92,7 +102,19 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     public function GetItems($params, $indexPage, $pageNumber, &$total) {
         $name = isset($params["keyword"]) ? $params["keyword"] : '';
-        $where = " `Name` like '%{$name}%' ";
+        $danhmuc = isset($params["danhmuc"]) ? $params["danhmuc"] : null;
+        $isShow = isset($params["isShow"]) ? $params["isShow"] : null;
+        $isShowSql = "and `isShow` >= '0' ";
+        $danhmucSql = "";
+
+        if ($isShow) {
+            $isShowSql = "and `isShow` = '{$isShow}' ";
+        }
+        if ($danhmuc) {
+            $danhmucSql = "and `DanhMucId` = '{$danhmuc}' ";
+        }
+
+        $where = " `Name` like '%{$name}%' {$danhmucSql} $isShowSql";
         return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 
@@ -163,6 +185,58 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     public function Price() {
         return \Model\Common::ViewPrice($this->Price);
+    }
+
+    public function btnPut() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_put"]) == false) {
+            return;
+        }
+        ?> 
+        <a class="btn btn-primary" href="/quanlysanpham/sanpham/put/?id=<?php echo $this->Id; ?>">
+            <i class="fa fa-edit"></i>Sửa
+        </a>
+        <?php
+    }
+
+    public function btnDelete() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_delete"]) == false) {
+            return;
+        }
+        ?> 
+        <a class="btn btn-danger" title="Xóa Vĩnh Viễn Sản Phẩm Này?" href="/quanlysanpham/sanpham/deleteall/<?php echo $this->Id; ?>">
+            <i class="fa fa-times"></i>Xóa
+        </a>
+        <?php
+    }
+
+    public static function btnDeleteSelect() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_delete"]) == false) {
+            return;
+        }
+        ?> 
+        <button class="btn btn-danger" title="Xóa Các Sản Phẩm Đã Chọn?" >
+            <i class="fa fa-times"></i>Xóa Chọn
+        </button>
+        <?php
+    }
+
+    // ẩn trong hiển thị sảm -> xóa đưa vào thùng rác
+    public function DeleteIsShow($DSMaSanPham) {
+        $model["isShow"] = -1;
+        $DSMaSanPham = implode("','", $DSMaSanPham);
+        $where = "`Id` in ('{$DSMaSanPham}') ";
+        $this->Update($model, $where);
+    }
+
+    public function btnMoveToTrash() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, "quanlysanpham_sanpham_delete"]) == false) {
+            return;
+        }
+        ?> 
+        <a class="btn btn-danger" title="Xóa Sản Phẩm Này?" href="/quanlysanpham/sanpham/delete/?id=<?php echo $this->Id; ?>">
+            <i class="fa fa-times"></i>Xóa
+        </a>
+        <?php
     }
 
 }

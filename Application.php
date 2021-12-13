@@ -7,6 +7,7 @@ class Application {
     static public $_Theme;
     static public $_Layout;
     static public $_Action;
+    static public $_Params;
 
     function __construct() {
         
@@ -38,11 +39,11 @@ class Application {
         $controller = self::$_Controller;
         $action = self::$_Action;
         $theme = self::$_Theme;
-         $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
+        $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
         $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
         if ($_module) {
             $_Content = __DIR__ . "/Module/{$_module}/Views/{$controller}/{$action}.phtml";
-        } 
+        }
         include __DIR__ . "/Views/theme/{$theme}/layout{$_layout}.phtml";
     }
 
@@ -57,6 +58,17 @@ class Application {
         $theme = self::$_Theme;
         $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
         include $_Content;
+    }
+
+    public static function SetParams($_Params) {
+        self::$_Params = $_Params;
+    }
+
+    public function getParams($index = null, $defaut = null) {
+        if ($index === null) {
+            return isset(self::$_Params[$index]);
+        }
+        return $defaut;
     }
 
 }

@@ -72,4 +72,8 @@ class SanPhamThuocTinhChiTiet extends \Model\DB implements \Model\IModelService 
         return $this->Select($where);
     }
 
+    public function DeleteByIdSanPham($Id) {
+        
+    }
+
 }

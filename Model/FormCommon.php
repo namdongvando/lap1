@@ -22,4 +22,9 @@ class FormCommon {
         return new FormRender(new Element\Select($label, $name, $options, $properties));
     }
 
+    public static function TextBox($label, $name, $properties) {
+
+        return new FormRender(new Element\Textbox($label, $name, $properties));
+    }
+
 }

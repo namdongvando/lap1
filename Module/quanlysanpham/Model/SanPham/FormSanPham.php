@@ -112,8 +112,7 @@ class FormSanPham implements iFormSanPham {
 
     public static function Summary($val = null) {
         $properties = self::$properties;
-        $properties["value"] = $val;
-        $properties[FormRender::Required] = "true";
+        $properties["value"] = $val; 
         $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
         return new FormRender(new Element\Textarea("Mô Tả Ngắn", $name, $properties));
     }

@@ -95,4 +95,12 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
         return $this->SelectRow($where);
     }
 
+    /**
+     * xóa thuoc tin theo sản phảm
+     * @param {type} parameter
+     */
+    public function DeleteByIdSanPham($Id) {
+        
+    }
+
 }

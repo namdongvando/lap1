@@ -554,7 +554,8 @@ class Functions {
 
                         <li class="<?php echo \Application::$_Module == "quanlysanpham" ? 'active' : '' ?> treeview">
                             <a href="#">
-                                <i class="fa fa-dashboard"></i> <span>Quản Lý Sản Phẩm</span> <i class="fa fa-angle-left pull-right"></i>
+                                <i class="fa fa-dashboard"></i> <span>Quản Lý Sản Phẩm</span>
+                                <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <?php

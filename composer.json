@@ -1,15 +1,19 @@
 {
-    "name": "vendor/lap1",
-    "description": "Description of project lap1.",
+    "name": "laplaptrinhphp",
+    "description": "Hướng dẫn lập trình php.",
     "authors": [
         {
             "name": "MSI",
-            "email": "your@email.here"
+            "email": "namdong92@gmail.com"
         }
     ],
     "require": {
         "namdongvando/rpfbc": "^3.22",
         "namdongvando/imagesoptimizer": "^1.0",
         "phpmailer/phpmailer": "^6.5"
+    }
+    ,
+    "autoload": {
+       
     }
 }

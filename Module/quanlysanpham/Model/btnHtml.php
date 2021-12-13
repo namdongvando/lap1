@@ -24,7 +24,7 @@ class btnHtml {
             return;
         }
         ?> 
-        <li><a href="/index.php?module=quanlysanpham&controller=sanpham&action=index">
+        <li><a href="/quanlysanpham/sanpham/index/">
                 <i class="fa fa-list-alt"></i>Danh Sách Sản Phẩm</a>
         </li>
 

@@ -71,10 +71,14 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
         return $this->UpdateRow($model);
     }
 
-    public static function CapChaTpOptions() {
+    public static function CapChaTpOptions($dungTatCa = false) {
         $dm = new DanhMuc();
         $where = "`parentsId` != '' or `parentsId` is null ";
-        return $dm->SelectToOptions($where, ["Id", "Name"]);
+        $a = $dm->SelectToOptions($where, ["Id", "Name"]);
+        if ($dungTatCa == true) {
+            $a = ["" => "Tất Cả"] + $a;
+        }
+        return $a;
     }
 
     public function btnSua() {

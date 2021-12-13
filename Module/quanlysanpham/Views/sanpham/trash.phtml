@@ -1,8 +1,9 @@
 <script src="/Module/quanlysanpham/public/AppDanhSachSP.js" type="text/javascript"></script>
 <ol class="breadcrumb" >
-    <li><a href="/backend/" >Home</a></li>
-    <li> Danh Sách Sản Phẩm </li>
-</ol> 
+    <li><a href="/index.php?controller=backend" >Home</a></li>
+    <li><a href="/index.php?module=quanlysanpham&controller=sanpham&action=index" >Danh Sách Sản Phẩm</a></li>
+    <li> Đã Xóa</li>
+</ol>
 <?php
 
 use Module\quanlysanpham\Model\SanPham;
@@ -10,7 +11,7 @@ use Module\quanlysanpham\Model\SanPham;
 
 
 <div class="container-fluid" ng-controller="AppDanhSachSP" >
-    <form action="/quanlysanpham/sanpham/index/"  >
+    <form action="/quanlysanpham/sanpham/trash/"  >
         <div class="form-group-md " >
             <div class="d-flex" >  
                 <label class="btn btn-default" >
@@ -44,7 +45,7 @@ use Module\quanlysanpham\Model\SanPham;
                     )->renderHTML();
                     ?> 
                 </div>
-                <div class="col-md-3" >
+                <div class="col-md-3 hidden" >
                     <?php
                     $params["isShow"] = isset($params["isShow"]) ? $params["isShow"] : "";
                     \Model\FormCommon::Select("Ẩn Hiện", "isShow", ["" => "Tất Cả", 1 => "Hiện", 0 => "Ẩn"],
@@ -62,12 +63,10 @@ use Module\quanlysanpham\Model\SanPham;
     <form action="/quanlysanpham/sanpham/delete/" method="POST" >
         <div class="box box-primary" >
             <div class="box-header" > 
-                <h3  class="box-header"></h3>
-                <div class="box-tools" >
-                    <a href="/quanlysanpham/sanpham/trash/" class="btn btn-default" > <i class="fa fa-trash" ></i> </a>
-
+                <h3  class="box-title">Các Sản Phẩm Đã Xóa</h3>
+                <div class="box-tools" > 
                     <?php
-                    Module\quanlysanpham\Model\SanPham::btnPost();
+//                    Module\quanlysanpham\Model\SanPham::btnPost();
                     ?>
                 </div>
             </div>
@@ -100,7 +99,7 @@ use Module\quanlysanpham\Model\SanPham;
                                 <th>
                                     <?php
                                     $_item->btnPut();
-                                    $_item->btnMoveToTrash();
+                                    $_item->btnDelete();
                                     ?>
 
                                 </th> 
@@ -142,7 +141,7 @@ use Module\quanlysanpham\Model\SanPham;
                         )->render();
                         ?> 
                         <?php
-                        $linkPhanTrang = "/quanlysanpham/sanpham/index/?keyword={$params["keyword"]}&danhmuc={$params["danhmuc"]}&isShow={$params["isShow"]}&indexPage=[i]&pageNumber={$pageNumber}";
+                        $linkPhanTrang = "/quanlysanpham/sanpham/trash/?keyword={$params["keyword"]}&danhmuc={$params["danhmuc"]}&isShow={$params["isShow"]}&indexPage=[i]&pageNumber={$pageNumber}";
                         echo \Model\Common::PhanTrang($total, $indexPage, $pageNumber, $linkPhanTrang);
                         ?> 
                     </div>
@@ -157,7 +156,7 @@ use Module\quanlysanpham\Model\SanPham;
         var keyword = '<?php echo $params["keyword"] ?>';
         var danhmuc = '<?php echo $params["danhmuc"] ?>';
         var isShow = '<?php echo $params["isShow"] ?>';
-        var linkPhanTrang = `/quanlysanpham/sanpham/index/?keyword=` + keyword + `&danhmuc=` + danhmuc + `&isShow=` + isShow + `&indexPage=1&pageNumber=[j]`;
+        var linkPhanTrang = `/quanlysanpham/sanpham/trash/?keyword=` + keyword + `&danhmuc=` + danhmuc + `&isShow=` + isShow + `&indexPage=1&pageNumber=[j]`;
         linkPhanTrang = linkPhanTrang.replace("[j]", evalue);
         window.location.href = linkPhanTrang;
     }

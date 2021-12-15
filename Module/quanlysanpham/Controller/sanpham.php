@@ -60,7 +60,17 @@ class sanpham extends \Application implements \Controller\IControllerBE {
     }
 
     function deleteall() {
+        if (\Model\Request::Post("SanPham", [])) {
+            $ids = \Model\Request::Post("SanPham", []);
+
+            foreach ($ids as $id => $onOf) {
+                $sanPham = new \Module\quanlysanpham\Model\SanPham();
+                $sanPham->Delete($id);
+            } 
+            \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
+        }
         $id = $this->getParams(0);
+//        var_dump($id);
         try {
             $sanPham = new \Module\quanlysanpham\Model\SanPham();
             $sanPham->Delete($id);
@@ -72,13 +82,18 @@ class sanpham extends \Application implements \Controller\IControllerBE {
 
     public function delete() {
 
+        if (\Model\Request::Get("id", [])) {
+            $DSMaSanPham = \Model\Request::Get("id", []);
+            $modelItem = new \Module\quanlysanpham\Model\SanPham();
+            $modelItem->DeleteIsShow([$DSMaSanPham]);
+        }
         if (\Model\Request::Post("SanPham", [])) {
             $DSMaSanPham = \Model\Request::Post("SanPham", []);
             $DSMaSanPham = array_keys($DSMaSanPham);
-            var_dump($DSMaSanPham);
             $modelItem = new \Module\quanlysanpham\Model\SanPham();
             $modelItem->DeleteIsShow($DSMaSanPham);
         }
+        \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
     }
 
     public function post() {

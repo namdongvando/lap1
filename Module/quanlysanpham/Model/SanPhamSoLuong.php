@@ -78,7 +78,7 @@ class SanPhamSoLuong extends \Model\DB implements \Model\IModelService {
         return new SanPhamThuocTinhChiTiet($this->Option2);
     }
 
-    public function DeleteByIdSanPham($Id) {
+    public function DeleteByIdSanPham($idSanPham) {
         $where = "`IdSanPham` = '{$idSanPham}'";
         return $this->DeleteDB($where);
     }

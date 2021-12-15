@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'QuanLyNhanVien\\' => array($baseDir . '/App/QuanLyNhanVien/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'PFBC\\' => array($vendorDir . '/namdongvando/rpfbc/src'),
     'Imagesoptimizer\\' => array($vendorDir . '/namdongvando/imagesoptimizer/src'),
+    'HangSanXuat\\' => array($baseDir . '/App/HangSanXuat/src'),
 );

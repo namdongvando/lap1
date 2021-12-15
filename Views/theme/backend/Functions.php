@@ -568,6 +568,7 @@ class Functions {
                         </li> 
                         <?php
                     }
+                    \Module\baiviet\Functions::menulayout(\Application::$_Module);
                     if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyquyen::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyquyen" ? 'active' : '' ?> treeview">
@@ -590,17 +591,15 @@ class Functions {
                     }
                     ?> 
 
-                    <li class="treeview hidden  ">
+                    <li class="treeview active">
                         <a href="#">
-                            <i class="fa fa-files-o"></i>
-                            <span>Layout Options</span>
+                            <i class="fa fa-gears"></i>
+                            <span>Cài Đặt</span>
                             <span class="label label-primary pull-right">4</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                            <li><a href="/locations/index"><i class="fa fa-circle-o"></i> Tỉnh Thành Phố</a></li>
+                            
                         </ul>
                     </li>
 

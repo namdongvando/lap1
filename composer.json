@@ -1,5 +1,5 @@
 {
-    "name": "laplaptrinhphp",
+    "name": "namdong92/lap1",
     "description": "Hướng dẫn lập trình php.",
     "authors": [
         {
@@ -11,9 +11,11 @@
         "namdongvando/rpfbc": "^3.22",
         "namdongvando/imagesoptimizer": "^1.0",
         "phpmailer/phpmailer": "^6.5"
-    }
-    ,
+    } , 
     "autoload": {
-       
+        "psr-4": {
+            "QuanLyNhanVien\\": "App/QuanLyNhanVien/src/",
+            "HangSanXuat\\": "App/HangSanXuat/src/"
+        }
     }
 }

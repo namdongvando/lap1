@@ -41,6 +41,7 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
     }
 
     public function Delete($Id) {
+
         return $this->DeleteById($Id);
     }
 
@@ -99,8 +100,19 @@ class SanPhamThuocTinh extends \Model\DB implements \Model\IModelService {
      * xóa thuoc tin theo sản phảm
      * @param {type} parameter
      */
-    public function DeleteByIdSanPham($Id) {
-        
+    public function DeleteByIdSanPham($IdSanPham) {
+//        b1: lấy tat cá thuoc tính theo mã sản phẩm
+        $where = "`IdSanPham` = '{$IdSanPham}'";
+        $itemTT = $this->Select($where, ["Id"]);
+        $ids = array_map(function($item) {
+            return $item["Id"];
+        }, $itemTT);
+//        var_dump($ids);
+        $ttct = new SanPhamThuocTinhChiTiet();
+        $ttct->DeleteByIdThuocTinhId($ids);
+        $sptt = new SanPhamThuocTinh();
+        $where = "`IdSanPham` = '{$IdSanPham}'";
+        $sptt->DeleteDB($where);
     }
 
 }

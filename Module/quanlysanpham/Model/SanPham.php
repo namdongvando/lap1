@@ -82,7 +82,10 @@ class SanPham extends \Model\DB implements \Model\IModelService {
         $spsl->DeleteByIdSanPham($Id);
         $spsl = new SanPhamThuocTinh();
         $spsl->DeleteByIdSanPham($Id);
-        
+        // xóa hinh
+        $sp = new SanPham($Id);
+        $sp->XoaHinh();
+        $sp->DeleteById($Id);
     }
 
     static function SanPhamByDanhMuc($id) {
@@ -222,6 +225,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     // ẩn trong hiển thị sảm -> xóa đưa vào thùng rác
     public function DeleteIsShow($DSMaSanPham) {
+         
         $model["isShow"] = -1;
         $DSMaSanPham = implode("','", $DSMaSanPham);
         $where = "`Id` in ('{$DSMaSanPham}') ";
@@ -237,6 +241,15 @@ class SanPham extends \Model\DB implements \Model\IModelService {
             <i class="fa fa-times"></i>Xóa
         </a>
         <?php
+    }
+
+    public function XoaHinh() {
+        $urlHinh = $this->UrlImages;
+        $urlHinh = substr($urlHinh, 1);
+//        echo $urlHinh;
+        if (file_exists($urlHinh)) {
+            unlink($urlHinh);
+        }
     }
 
 }

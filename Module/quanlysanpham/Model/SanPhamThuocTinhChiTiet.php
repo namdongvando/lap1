@@ -68,12 +68,24 @@ class SanPhamThuocTinhChiTiet extends \Model\DB implements \Model\IModelService 
     }
 
     public function GetByIdThuocTinh($loaithuocTinh) {
-         $where = " `IdThuocTinh` = '{$loaithuocTinh}' ";
+        $where = " `IdThuocTinh` = '{$loaithuocTinh}' ";
         return $this->Select($where);
     }
 
-    public function DeleteByIdSanPham($Id) {
-        
+    /**
+     * xóa theo danh sách thuoc tinh
+     * @param {type} parameter
+     */
+    public function DeleteByIdThuocTinhId($ids) {
+        if (is_array($ids)) {
+            $strids = implode("','", $ids);
+            $strids = "('{$strids}')";
+        } else {
+            $strids = "('{$ids}')";
+        }
+        $strids;
+        $where = " `IdThuocTinh` in $strids";
+        $this->DeleteDB($where);
     }
 
 }

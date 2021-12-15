@@ -66,9 +66,9 @@ class Application {
 
     public function getParams($index = null, $defaut = null) {
         if ($index === null) {
-            return isset(self::$_Params[$index]);
+            return $defaut;
         }
-        return $defaut;
+        return isset(self::$_Params[$index]) ? self::$_Params[$index] : null;
     }
 
 }

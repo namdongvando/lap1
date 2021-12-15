@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit993370ec98b832db4303925213090e7d
 {
     public static $prefixLengthsPsr4 = array (
+        'Q' => 
+        array (
+            'QuanLyNhanVien\\' => 15,
+        ),
         'P' => 
         array (
             'PHPMailer\\PHPMailer\\' => 20,
@@ -16,9 +20,17 @@ class ComposerStaticInit993370ec98b832db4303925213090e7d
         array (
             'Imagesoptimizer\\' => 16,
         ),
+        'H' => 
+        array (
+            'HangSanXuat\\' => 12,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'QuanLyNhanVien\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/QuanLyNhanVien/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -30,6 +42,10 @@ class ComposerStaticInit993370ec98b832db4303925213090e7d
         'Imagesoptimizer\\' => 
         array (
             0 => __DIR__ . '/..' . '/namdongvando/imagesoptimizer/src',
+        ),
+        'HangSanXuat\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/HangSanXuat/src',
         ),
     );
 

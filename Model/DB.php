@@ -132,13 +132,14 @@ class DB {
     public function DeleteDB($where) {
         $TableName = self::$TableName;
         $sql = "DELETE FROM `{$TableName}` WHERE {$where}";
-         if (self::$Debug == TRUE)
-                echo $sql;
+        if (self::$Debug == TRUE)
+            echo $sql;
         self::$Connect->query($sql);
         return self::$Connect;
     }
 
     public function DeleteById($id) {
+        
         $where = " `Id` = '{$id}' ";
         $this->DeleteDB($where);
     }

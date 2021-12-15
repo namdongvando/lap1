@@ -60,7 +60,7 @@ use Module\quanlysanpham\Model\SanPham;
             </div>
         </div>
     </form>
-    <form action="/quanlysanpham/sanpham/delete/" method="POST" >
+    <form action="/quanlysanpham/sanpham/deleteall/" method="POST" >
         <div class="box box-primary" >
             <div class="box-header" > 
                 <h3  class="box-title">Các Sản Phẩm Đã Xóa</h3>
@@ -76,7 +76,7 @@ use Module\quanlysanpham\Model\SanPham;
                         <tr>
                             <th><input type="checkbox" ng-model="checkAll"  ></th>
                             <th> 
-                                <div class="btn-group pull-left" ng-show="checkAll" >
+                                <div class="btn-group pull-left" >
                                     <?php
                                     Module\quanlysanpham\Model\SanPham::btnDeleteSelect();
                                     ?>

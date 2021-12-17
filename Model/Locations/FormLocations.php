@@ -29,6 +29,7 @@ class FormLocations implements iFormLocations {
     public static function Id($val = null) {
         $properties = self::$properties;
         $properties['value'] = $val;
+        $properties[FormRender::Readonly] = '';
         $name = self::SetName(__FUNCTION__);
         return new FormRender(new Element\Textbox("Mã", $name, $properties));
     }
@@ -57,8 +58,10 @@ class FormLocations implements iFormLocations {
     public static function ParentsId($val = null) {
         $properties = self::$properties;
         $properties['value'] = $val;
+        $properties['class'] = "form-control select2";
         $name = self::SetName(__FUNCTION__);
         $options = \Model\Locations::ToSelect(0);
+        $options = ["" => "Là Cấp Cha"] + $options;
 //        var_dump($options );
         return new FormRender(new Element\Select("Cấp Cha", $name, $options, $properties));
     }

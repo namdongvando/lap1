@@ -1,6 +1,6 @@
 <ol class="breadcrumb" >
-    <li><a href="/index.php?controller=backend" >Home</a></li>
-    <li> Tỉnh Thành Phố </li>
+    <li><a href="/backend" >Home</a></li>
+    <li> Tùy Chọn Bài Viết</li>
 
 </ol>
 
@@ -73,7 +73,7 @@
                 )->render();
                 ?> 
                 <?php
-                $linkPhanTrang = "/locations/index/?keyword={$params["keyword"]}&indexPage=[i]&pageNumber={$pageNumber}";
+                $linkPhanTrang = "/baiviet/options/?keyword={$params["keyword"]}&indexPage=[i]&pageNumber={$pageNumber}";
                 echo \Model\Common::PhanTrang($total, $indexPage, $pageNumber, $linkPhanTrang);
                 ?> 
             </div>
@@ -82,7 +82,7 @@
 </div>
 <script type="text/javascript" >
     var SoDongHienThi = function (evalue) {
-        var linkPhanTrang = '/locations/index/?keyword=&indexPage=1&pageNumber=[j]';
+        var linkPhanTrang = '/baiviet/options/?keyword=&indexPage=1&pageNumber=[j]';
         linkPhanTrang = linkPhanTrang.replace("[j]", evalue);
         window.location.href = linkPhanTrang;
     }

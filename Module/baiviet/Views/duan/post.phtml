@@ -1,6 +1,10 @@
+<?php
+
+use Module\baiviet\Model\DuAn\FormDuAn;
+?>
 <ol class="breadcrumb" >
-    <li><a href="/index.php?controller=backend" >Home</a></li>
-    <li><a href="/index.php?module=quanlysanpham&controller=danhmuc&action=index" >Quản Lý Danh Mục Sản Phẩm</a></li>
+    <li><a href="/backend" >Home</a></li>
+    <li><a href="/baiviet/duan/" >Quản Lý Dự Án</a></li>
     <li> Thêm Mới </li>
 </ol>
 <div  class="container-fluid" >
@@ -13,15 +17,10 @@
                 <div class="col-md-6" >
                     <div class="row" >
                         <?php
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::Name()->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::parentsId()->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::Lang()->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::title()->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::keyword()->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::des()->renderHTML();
+                        FormDuAn::Name()->renderHTML();
                         ?>
                     </div>
- 
+
                 </div>
             </div>
             <div class="box-footer" >

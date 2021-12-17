@@ -1,31 +1,39 @@
-<ol class="breadcrumb" >
-    <li><a href="/index.php?controller=backend" >Home</a></li>
-    <li><a href="/index.php?module=quanlysanpham&controller=danhmuc&action=index" >Quản Lý Danh Mục Sản Phẩm</a></li>
-    <li> Sửa </li>
-</ol>
 <?php
-$_item = new \Module\quanlysanpham\Model\DanhMuc($item);
+
+use Module\baiviet\Model\DuAn\FormDuAn;
+
+$_item = new \Module\baiviet\Model\DuAn\DuAn($Item);
 ?>
+<ol class="breadcrumb" >
+    <li><a href="/backend" >Home</a></li>
+    <li><a href="/baiviet/duan/" >Quản Lý Dự Án</a></li>
+    <li> Sửa Dự Án </li>
+</ol>
 <div  class="container-fluid" >
     <form action="" method="post">
         <div class="box box-primary" >
             <div class="box-header" >
-                <h3 class="box-title" >Sửa Danh Mục</h3>  
+                <h3 class="box-title" >Thêm Mới</h3>  
             </div>
             <div class="box-body" >
                 <div class="col-md-6" >
                     <div class="row" >
                         <?php
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::Id($_item->Id)->render();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::Name($_item->Name)->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::parentsId($_item->parentsId)->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::Lang($_item->Lang)->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::title($_item->title)->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::keyword($_item->keyword)->renderHTML();
-                        Module\quanlysanpham\Model\DanhMuc\FormDanhMuc::des($_item->des)->renderHTML();
+                        FormDuAn::Id($_item->Id)->renderHTML();
+                        FormDuAn::Name($_item->Name)->renderHTML();
+                        FormDuAn::Alias($_item->Alias)->renderHTML();
+                        FormDuAn::Tinh($_item->Tinh)->renderHTML();
+                        FormDuAn::Huyen($_item->Huyen)->renderHTML();
+                        FormDuAn::Xa($_item->Xa)->renderHTML();
+                        FormDuAn::DiaChi($_item->DiaChi)->renderHTML();
                         ?>
                     </div>
 
+                </div>  
+                <div class="col-md-12" >
+                    <?php
+                    FormDuAn::Content($_item->Content())->renderHTML();
+                    ?>
                 </div>
             </div>
             <div class="box-footer" >

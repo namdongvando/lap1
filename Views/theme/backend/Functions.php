@@ -24,6 +24,8 @@ class Functions {
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
+        <link href="/public/plugins/select2/select2.min.css" rel="stylesheet" type="text/css"/>
+
         <link rel="stylesheet"  href="/public/dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
@@ -44,6 +46,7 @@ class Functions {
         <script src="/public/Ang1/angular-sanitize.min.js" type="text/javascript"></script>
         <script src="/public/Ang1/angular-route.min.js" type="text/javascript"></script>
         <script src="/public/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
         <script src="/public/Ang1/App.js?v=<?php echo filemtime("public/Ang1/App.js"); ?>" type="text/javascript"></script>
         <?php
     }
@@ -55,6 +58,8 @@ class Functions {
         <!-- jQuery UI 1.11.4 -->
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script src="/public/plugins/select2/select2.full.js" type="text/javascript"></script>
+
         <script>
             $.widget.bridge('uibutton', $.ui.button);
         </script>
@@ -599,7 +604,7 @@ class Functions {
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="/locations/index"><i class="fa fa-circle-o"></i> Tỉnh Thành Phố</a></li>
-                            
+
                         </ul>
                     </li>
 

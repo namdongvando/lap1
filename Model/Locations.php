@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -58,9 +57,40 @@ class Locations extends DB implements IModelService, IModelToOptions {
         $this->UpdateRow($model);
     }
 
-    public static function ToSelect($pid = 0) { 
+    public static function ToSelect($pid = 0) {
         $loc = new Locations();
         return $loc->SelectToOptions("`ParentsId`= '{$pid}'", ["Id", "Name"]);
+    }
+
+    public static function btnThem() {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\locations::class . "_put")]) == false) {
+            return;
+        }
+        ?> 
+        <a href="/locations/post/ " class="btn btn-primary" >Thêm Mới</a>
+        <?php
+    }
+
+    public function Parents() {
+        return new Locations($this->ParentsId);
+    }
+
+    public function btnPut() {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\locations::class . "_put")]) == false) {
+            return;
+        }
+        ?> 
+        <a href="/locations/put/<?php echo $this->Id ?>" class="btn btn-primary" >Sửa</a>
+        <?php
+    }
+
+    public function btnDelete() {
+        if (Permission::CheckPremision([User::Admin, md5(\Controller\locations::class . "_delete")]) == false) {
+            return;
+        }
+        ?> 
+        <a title="Xóa Tỉnh Thành Này?" href="/locations/delete/<?php echo $this->Id ?>" class="btn btn-danger" >Xóa</a>
+        <?php
     }
 
 }

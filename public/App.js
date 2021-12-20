@@ -1,3 +1,13 @@
+const  LoadDanhSachHuyen = function (maTinh, idTarget) {
+    $.ajax({
+        type: "get",
+        "url": "/api/GetQuanHuyenTag/" + maTinh
+    }).done(function (res) {
+        $(idTarget).html(res);
+        $(idTarget).select2();
+    });
+
+}
 $(function () {
     try {
         $(".btngeneratePassword").click(function () {
@@ -65,7 +75,10 @@ $(function () {
 
     }
 
+
 });
+
+
 
 function BrowseServer(idInput, thumnai)
 {

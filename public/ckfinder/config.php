@@ -23,11 +23,10 @@ error_reporting(0);
  * @return boolean
  */
 include_once __DIR__ . '/../../config.php';
- 
 
 function CheckAuthentication() {
-    if(isset($_SESSION[QuanLy])){
-        return $_SESSION[QuanLy]; 
+    if (isset($_SESSION[QuanLy])) {
+        return $_SESSION[QuanLy];
     }
     return false;
 }
@@ -59,11 +58,17 @@ $config['LicenseKey'] = 'R3VSXSRLMJK1ML7YAD365LXH78KVLTLF';
 
   ATTENTION: The trailing slash is required.
  */
+
 $baseUrluser = __DIR__ . '/../userfiles/' . \Model\User::CurentUser()->Username . "/";
-if (!is_dir($baseUrl)) {
+if (!is_dir($baseUrluser)) {
     mkdir($baseUrluser, 0777);
+}   
+
+if (\Model\PathCkfinder::Get()!=null) {
+    $baseUrl = \Model\PathCkfinder::Get();
+} else {
+    $baseUrl = '/public/userfiles/' . \Model\User::CurentUser()->Username . "/";
 }
-$baseUrl = '/public/userfiles/' . \Model\User::CurentUser()->Username . "/";
 /*
   $baseDir : the path to the local directory (in the server) which points to the
   above $baseUrl URL. This is the path used by CKFinder to handle the files in

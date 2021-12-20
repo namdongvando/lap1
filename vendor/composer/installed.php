@@ -5,9 +5,9 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4a11b0e6845878aba1310ed2c8f32fec420c487c',
+        'reference' => '566ece60c8329aaa1fcff9343ab7db49e2ad19cf',
         'name' => 'namdong92/lap1',
-        'dev' => false,
+        'dev' => true,
     ),
     'versions' => array(
         'namdong92/lap1' => array(
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4a11b0e6845878aba1310ed2c8f32fec420c487c',
+            'reference' => '566ece60c8329aaa1fcff9343ab7db49e2ad19cf',
             'dev_requirement' => false,
         ),
         'namdongvando/imagesoptimizer' => array(
@@ -44,6 +44,15 @@
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
             'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
+            'dev_requirement' => false,
+        ),
+        'zaloplatform/zalo-php-sdk' => array(
+            'pretty_version' => '2.0.3',
+            'version' => '2.0.3.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../zaloplatform/zalo-php-sdk',
+            'aliases' => array(),
+            'reference' => 'bc5d27e2e4208bd06c93abcd9bbb098275c858b0',
             'dev_requirement' => false,
         ),
     ),

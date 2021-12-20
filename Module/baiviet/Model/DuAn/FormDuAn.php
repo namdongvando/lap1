@@ -40,7 +40,7 @@ class FormDuAn implements iFormDuAn {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        return new FormRender(new Element\Textbox("Mô Tả", $name, $properties));
+        return new FormRender(new Element\Textarea("Mô Tả", $name, $properties));
     }
 
     public static function DiaChi($val = null) {
@@ -50,17 +50,20 @@ class FormDuAn implements iFormDuAn {
         return new FormRender(new Element\Textbox("Địa Chỉ", $name, $properties));
     }
 
-    public static function Huyen($val = null) {
+    public static function Huyen($val = null, $tinhThanh = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        return new FormRender(new Element\Textbox("Huyện", $name, $properties));
+        $properties["id"] = __FUNCTION__;
+        $Options = \Model\Locations::ToSelect(intval($tinhThanh));
+        return new FormRender(new Element\Select("Huyện", $name, $Options, $properties));
     }
 
     public static function Id($val = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
+        $properties[FormRender::Readonly] = true;
         return new FormRender(new Element\Textbox("Mã", $name, $properties));
     }
 
@@ -82,15 +85,16 @@ class FormDuAn implements iFormDuAn {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        return new FormRender(new Element\Textbox("Mô Tả Ngắn", $name, $properties));
+        $properties["id"] = __FUNCTION__;
+        return new FormRender(new Element\Textarea("Mô Tả Ngắn", $name, $properties));
     }
 
     public static function Tinh($val = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        $properties["class"] ="select2 form-control";
-        $properties["onchange"] ="alert('aa')";
+        $properties["class"] = "select2 form-control";
+        $properties["onchange"] = "LoadDanhSachHuyen(this.value,'#Huyen')";
         $options = \Model\Locations::ToSelect(0);
         return new FormRender(new Element\Select("Tỉnh", $name, $options, $properties));
     }
@@ -118,6 +122,15 @@ class FormDuAn implements iFormDuAn {
         $properties = self::$properties;
         $properties["value"] = $val;
         return new FormRender(new Element\Textbox("Link", $name, $properties));
+    }
+
+    public static function Images($val = null) {
+        $name = self::setName(__FUNCTION__);
+        $properties = self::$properties;
+        $properties["value"] = $val;
+        $properties[FormRender::Readonly] = "";
+        $properties["Id"] = 'UrlImages';
+        return new FormRender(new Element\Textbox("Hinh Anh3", $name, $properties));
     }
 
 }

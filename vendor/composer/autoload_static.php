@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit993370ec98b832db4303925213090e7d
 {
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'Zalo\\' => 5,
+        ),
         'Q' => 
         array (
             'QuanLyNhanVien\\' => 15,
@@ -27,6 +31,10 @@ class ComposerStaticInit993370ec98b832db4303925213090e7d
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zalo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zaloplatform/zalo-php-sdk/src',
+        ),
         'QuanLyNhanVien\\' => 
         array (
             0 => __DIR__ . '/../..' . '/App/QuanLyNhanVien/src',

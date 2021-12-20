@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dc171d6a2aa3181d166ab613cc927e6",
+    "content-hash": "2fb9a17c5aa576b0fba604f9a906e08a",
     "packages": [
         {
             "name": "namdongvando/imagesoptimizer",
@@ -178,6 +178,55 @@
                 }
             ],
             "time": "2021-11-25T16:34:11+00:00"
+        },
+        {
+            "name": "zaloplatform/zalo-php-sdk",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zaloplatform/zalo-php-sdk.git",
+                "reference": "bc5d27e2e4208bd06c93abcd9bbb098275c858b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zaloplatform/zalo-php-sdk/zipball/bc5d27e2e4208bd06c93abcd9bbb098275c858b0",
+                "reference": "bc5d27e2e4208bd06c93abcd9bbb098275c858b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.2.*"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Zalo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Zalo Platform"
+            ],
+            "authors": [
+                {
+                    "name": "zaloplatform",
+                    "email": "zaloplatform@gmail.com"
+                }
+            ],
+            "description": "sdk for zalo developers",
+            "keywords": [
+                "composer",
+                "sdk",
+                "zalo",
+                "zalosdk"
+            ],
+            "support": {
+                "issues": "https://github.com/zaloplatform/zalo-php-sdk/issues",
+                "source": "https://github.com/zaloplatform/zalo-php-sdk/tree/2.0.3"
+            },
+            "time": "2020-12-22T17:12:33+00:00"
         }
     ],
     "packages-dev": [],

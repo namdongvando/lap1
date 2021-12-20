@@ -20,6 +20,7 @@ interface iFormDuAn {
     static public function Alias($val = null);
 
     static public function Title($val = null);
+    static public function Images($val = null);
 
     static public function Des($val = null);
 

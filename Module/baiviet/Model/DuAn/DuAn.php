@@ -17,6 +17,7 @@ class DuAn extends \Model\DB implements \Model\IModelService, \Model\IModelToOpt
     public $Id;
     public $Name;
     public $Title;
+    public $Images;
     public $Alias;
     public $Des;
     public $Keyword;
@@ -40,6 +41,7 @@ class DuAn extends \Model\DB implements \Model\IModelService, \Model\IModelToOpt
                 $this->Name = isset($da["Name"]) ? $da["Name"] : null;
                 $this->Title = isset($da["Title"]) ? $da["Title"] : null;
                 $this->Alias = isset($da["Alias"]) ? $da["Alias"] : null;
+                $this->Images= isset($da["Images"]) ? $da["Images"] : null;
                 $this->Des = isset($da["Des"]) ? $da["Des"] : null;
                 $this->Keyword = isset($da["Keyword"]) ? $da["Keyword"] : null;
                 $this->Sumary = isset($da["Sumary"]) ? $da["Sumary"] : null;
@@ -91,6 +93,11 @@ class DuAn extends \Model\DB implements \Model\IModelService, \Model\IModelToOpt
 
     public function Content() {
         return htmlspecialchars_decode($this->Content);
+    }
+
+    public function Sumary() {
+        return htmlspecialchars_decode($this->Sumary);
+        
     }
 
 }

@@ -2,21 +2,28 @@
 
 namespace Controller;
 
-class index {
+class index extends \Application {
 
     public function __construct() {
-        
+        self::$_Theme = "eshopper";
     }
 
     function index() {
-        echo "index/index";
-        $userService = new \Model\UserService();
-        $user = $userService->GetUserByUsernamPassword("admin", "123456");
-         
+        $this->View();
+    }
+
+    function pages() {
+        $alias = \Model\Request::Get("param", "");
+        $pages = new \Module\baiviet\Model\Pages\PagesService();
+        $item = $pages->GetByAlias($alias);
+        if ($item == null) {
+            \Model\Common::ToUrl("/index/loi404");
+        }
+        $this->View(["Item" => $item]);
     }
 
     function loi404() {
-        echo "lỗi 404";
+       $this->View();
     }
 
 }

@@ -31,7 +31,7 @@ class PagesService extends \Model\DB implements \Model\IModelService, \Model\IMo
     }
 
     public function GetById($Id) {
-        
+        return $this->SelectById($Id);
     }
 
     public function GetItems($param, $indexPage, $pageNumber, &$total) {
@@ -40,11 +40,11 @@ class PagesService extends \Model\DB implements \Model\IModelService, \Model\IMo
     }
 
     public function Post($model) {
-        
+        return $this->Insert($model);
     }
 
     public function Put($model) {
-        
+        return $this->UpdateRow($model);
     }
 
     public static function ToSelect() {
@@ -52,9 +52,39 @@ class PagesService extends \Model\DB implements \Model\IModelService, \Model\IMo
     }
 
     public static function btnPost() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, \Module\baiviet\Controller\pages::class . "_post"]) == false) {
+            return;
+        }
         ?> 
         <a href="/baiviet/pages/post" class="btn btn-success" >Thêm Mới</a>
         <?php
+    }
+
+    public function btnPut() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, \Module\baiviet\Controller\pages::class . "_put"]) == false) {
+            return;
+        }
+        ?> 
+        <a href="/baiviet/pages/put/<?php echo $this->Id ?>" class="btn btn-primary" >Sửa</a>
+        <?php
+    }
+
+    public function btnDelete() {
+        if (\Model\Permission::CheckPremision([\Model\User::Admin, \Module\baiviet\Controller\pages::class . "_delete"]) == false) {
+            return;
+        }
+        ?> 
+        <a href="/baiviet/pages/movetotrash/<?php echo $this->Id ?>" class="btn btn-danger" >Xóa</a>
+        <?php
+    }
+
+    public function Content() {
+        return htmlspecialchars_decode($this->Content);
+    }
+
+    public function GetByAlias($alias) {
+        $where = "`Alias` = '{$alias}'";
+        return $this->SelectRow($where);
     }
 
 }

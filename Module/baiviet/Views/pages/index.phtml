@@ -12,7 +12,7 @@ use Module\baiviet\Model\Pages\PagesService;
         <div class="box-header" >
             <h3 class="box-title" >Danh Sách Trang</h3>
             <div class="box-tools" >
-                <?php 
+                <?php
                 PagesService::btnPost();
                 ?>
             </div>
@@ -34,6 +34,10 @@ use Module\baiviet\Model\Pages\PagesService;
                         ?> 
                         <tr>
                             <th style="width: 150px;" > 
+                                <?php
+                                $_item->btnPut();
+                                $_item->btnDelete();
+                                ?>
                             </th>
                             <th><?php echo $index + 1; ?></th> 
                             <th><?php echo $_item->Name; ?></th>

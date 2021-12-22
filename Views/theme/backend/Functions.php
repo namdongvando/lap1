@@ -574,6 +574,7 @@ class Functions {
                         <?php
                     }
                     \Module\baiviet\Functions::menulayout(\Application::$_Module);
+
                     if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyquyen::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyquyen" ? 'active' : '' ?> treeview">
@@ -585,6 +586,8 @@ class Functions {
                     }
                     ?> 
                     <?php
+                    \Module\giaodien\Functions::menulayout(\Application::$_Module);
+
                     if (\Model\Permission::CheckPremision([\Model\User::Admin, md5(\Controller\quanlyusers::class . "_view")]) == true) {
                         ?>
                         <li class="<?php echo \Application::$_Controller == "quanlyusers" ? 'active' : '' ?> treeview">

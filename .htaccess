@@ -25,6 +25,8 @@ RewriteRule public - [L]
 #RewriteCond %{HTTPS} off
 #RewriteRule (.*) https://%{SERVER_NAME}/$1 [L]
 
+RewriteRule  (.*)\.html(.*) /index.php?controller=index&action=pages&param=$1 [L]
+
 
 RewriteRule (.*) index.php [L]
 #

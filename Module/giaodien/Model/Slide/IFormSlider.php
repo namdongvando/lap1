@@ -10,4 +10,12 @@ namespace Module\giaodien\Model\Slide;
  
 interface IFormSlider {
     //put your code here
+    
+    public static function Id($val=null);
+    public static function Name($val=null);
+    public static function Content($val=null);
+    public static function Images($val=null);
+    public static function GroupsId($val=null);
+    public static function IsPublic($val=null);
+    
 }

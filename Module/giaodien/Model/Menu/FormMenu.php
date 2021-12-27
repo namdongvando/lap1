@@ -1,33 +1,36 @@
 <?php
 
-namespace Module\giaodien\Model\Slide;
+namespace Module\giaodien\Model\Menu;
 
 use Model\FormRender;
 use PFBC\Element;
 
-class FormSlider implements IFormSlider {
+class FormMenu implements IFormMenu {
 
     //put your code here
-    static $FormName = "Duan";
+    static $FormName = "Menu";
     static $properties = ["class" => "form-control"];
 
     public function __construct() {
         
     }
 
-    public static function Content($val = null) {
+    public static function setName($name) {
+        return self::$FormName . "[{$name}]";
+    }
+
+    public static function Icon($val = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        $properties["class"] = "editorContent";
-        $properties["id"] = __FUNCTION__;
-        return new FormRender(new Element\Textarea("Nội Dung", $name, $properties));
+        return new FormRender(new Element\Textbox("Icon", $name, $properties));
     }
 
     public static function GroupsId($val = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
+        $properties[FormRender::Required] = $val;
         return new FormRender(new Element\Textbox("Nhóm", $name, $properties));
     }
 
@@ -39,11 +42,12 @@ class FormSlider implements IFormSlider {
         return new FormRender(new Element\Textbox("Mã", $name, $properties));
     }
 
-    public static function Images($val = null) {
+    public static function Images($val = null, $id = null) {
+        $id = $id == null ? "Input_Images" : $id;
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
         $properties["value"] = $val;
-        $properties["id"] = "Input_Images";
+        $properties["id"] = $id;
         $properties[FormRender::Readonly] = $val;
         return new FormRender(new Element\Textbox("Hình", $name, $properties));
     }
@@ -51,19 +55,27 @@ class FormSlider implements IFormSlider {
     public static function Name($val = null) {
         $name = self::setName(__FUNCTION__);
         $properties = self::$properties;
-        $properties["value"] = $val;  
-        return new FormRender(new Element\Textbox("Tên Slide", $name, $properties));
-    }
-    public static function IsPublic($val = null) {
-        $name = self::setName(__FUNCTION__);
-        $properties = self::$properties;
-        $properties["value"] = $val;  
-        $options = [1=>"Hiện",0=>"ẨN"];
-        return new FormRender(new Element\Select("Tên Slide", $name,$options, $properties));
+        $properties["value"] = $val;
+        $properties[FormRender::Required] = $val;
+        return new FormRender(new Element\Textbox("Tên", $name, $properties));
     }
 
-    public static function setName($name) {
-        return self::$FormName . "[{$name}]";
+    public static function ParentsId($val = null) {
+        $name = self::setName(__FUNCTION__);
+        $properties = self::$properties;
+        $properties["value"] = $val; 
+        $options = MenuService::ToSelect();
+        $options = ["" => "Là Cấp Cha"] + $options;
+        return new FormRender(new Element\Select("Cấp Cha", $name,
+                        $options, $properties));
+    }
+
+    public static function Link($val = null) {
+        $name = self::setName(__FUNCTION__);
+        $properties = self::$properties;
+        $properties["value"] = $val;
+        $properties[FormRender::Required] = $val;
+        return new FormRender(new Element\Textbox("Đường Dẫn", $name, $properties));
     }
 
 }

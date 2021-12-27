@@ -2,10 +2,10 @@
 
 namespace Module\giaodien\Controller;
 
-use Module\giaodien\Model\Slide\FormSlider;
-use Module\giaodien\Model\Slide\SliderService;
+use Module\giaodien\Model\Menu\FormMenu;
+use Module\giaodien\Model\Menu\MenuService;
 
-class slider extends \Application implements \Controller\IControllerBE {
+class menu extends \Application implements \Controller\IControllerBE {
 
     public function __construct() {
         new \Controller\backend();
@@ -14,7 +14,7 @@ class slider extends \Application implements \Controller\IControllerBE {
 
     public function index() {
 
-        $slide = new SliderService();
+        $slide = new MenuService();
         $params[] = "";
         $indexPage = isset($_REQUEST["indexPage"]) ? intval($_REQUEST["indexPage"]) : 1;
         $pageNumber = isset($_REQUEST["pageNumber"]) ? intval($_REQUEST["pageNumber"]) : 10;
@@ -34,20 +34,21 @@ class slider extends \Application implements \Controller\IControllerBE {
     }
 
     public function post() {
-        $modelSlide = new SliderService();
-        if (\Model\Request::Post(FormSlider::$FormName, [])) {
-            $itemPost = \Model\Request::Post(FormSlider::$FormName, []);
+        $modelSlide = new MenuService();
+        if (\Model\Request::Post(FormMenu::$FormName, [])) {
+            $itemPost = \Model\Request::Post(FormMenu::$FormName, []);
             $itemPost["Id"] = \Model\Common::uuid(); 
+            
             $modelSlide->Post($itemPost);
-            \Model\Common::ToUrl("/giaodien/slider/put/".$itemPost["Id"]);
+            \Model\Common::ToUrl("/giaodien/menu/put/".$itemPost["Id"]);
         }
         $this->View();
     }
 
     public function put() {
-        $modelSlide = new SliderService();
-        if (\Model\Request::Post(FormSlider::$FormName, [])) {
-            $itemPost = \Model\Request::Post(FormSlider::$FormName, []);
+        $modelSlide = new MenuService();
+        if (\Model\Request::Post(FormMenu::$FormName, [])) {
+            $itemPost = \Model\Request::Post(FormMenu::$FormName, []);
             $Id = $itemPost["Id"];
             $itemDB = $modelSlide->GetById($Id);
             foreach ($itemDB as $key => $value) {

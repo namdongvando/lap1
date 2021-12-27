@@ -599,7 +599,7 @@ class Functions {
                     }
                     ?> 
 
-                    <li class="treeview active">
+                    <li class="treeview ">
                         <a href="#">
                             <i class="fa fa-gears"></i>
                             <span>Cài Đặt</span>

@@ -30,6 +30,7 @@ $_item = new MenuService($Item);
                             FormMenu::GroupsId($_item->GroupsId)->renderHTML(); ?>
                             <?php FormMenu::Icon($_item->Icon)->renderHTML(); ?>
                             <?php FormMenu::Link($_item->Link)->renderHTML(); ?>
+                            <?php FormMenu::STT($_item->STT)->renderHTML(); ?>
                             <?php FormMenu::ParentsId($_item->ParentsId)->renderHTML(); ?>
                             <img id="imgHinhChinh" class="img  img-responsive" src="<?php echo $_item->Images; ?>" > 
                             <div class="form-group" >

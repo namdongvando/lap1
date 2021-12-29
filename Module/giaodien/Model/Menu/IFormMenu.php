@@ -21,6 +21,7 @@ interface IFormMenu {
 
     public static function Images($val = null);
     public static function GroupsId($val = null);
+    public static function STT($val = null);
 
     public static function Icon($val = null);
 }

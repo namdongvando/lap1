@@ -77,5 +77,12 @@ class FormMenu implements IFormMenu {
         $properties[FormRender::Required] = $val;
         return new FormRender(new Element\Textbox("Đường Dẫn", $name, $properties));
     }
+    public static function STT($val = null) {
+        $name = self::setName(__FUNCTION__);
+        $properties = self::$properties;
+        $properties["value"] = $val;
+        $properties[FormRender::Required] = $val;
+        return new FormRender(new Element\Textbox("Đường Dẫn", $name, $properties));
+    }
 
 }

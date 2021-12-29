@@ -46,7 +46,7 @@ class MenuService extends \Model\DB implements \Model\IModelService, \Model\IMod
     }
 
     public function GetItems($where, $indexPage, $pageNumber, &$total) {
-        $where = "`ParentsId` = '' OR `ParentsId`  is null";
+        $where = "`ParentsId` = '' OR `ParentsId`  is null order by `STT`";
         return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 

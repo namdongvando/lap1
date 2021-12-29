@@ -16,6 +16,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     public $Id;
     public $Name;
+    public $Code;
     public $Des;
     public $Keyword;
     public $Title;
@@ -47,6 +48,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
             if ($sp) {
                 $this->Id = isset($sp["Id"]) ? $sp["Id"] : null;
                 $this->Name = isset($sp["Name"]) ? $sp["Name"] : null;
+                $this->Code = isset($sp["Code"]) ? $sp["Code"] : null;
                 $this->Des = isset($sp["Des"]) ? $sp["Des"] : null;
                 $this->Keyword = isset($sp["Keyword"]) ? $sp["Keyword"] : null;
                 $this->Title = isset($sp["Title"]) ? $sp["Title"] : null;
@@ -59,6 +61,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
                 $this->Content = isset($sp["Content"]) ? $sp["Content"] : null;
                 $this->UrlImages = isset($sp["UrlImages"]) ? $sp["UrlImages"] : null;
                 $this->DateCreate = isset($sp["DateCreate"]) ? $sp["DateCreate"] : null;
+                 
                 $this->Number = isset($sp["Number"]) ? $sp["Number"] : null;
                 $this->Note = isset($sp["Note"]) ? $sp["Note"] : null;
                 $this->BuyTimes = isset($sp["BuyTimes"]) ? $sp["BuyTimes"] : null;
@@ -225,7 +228,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     // ẩn trong hiển thị sảm -> xóa đưa vào thùng rác
     public function DeleteIsShow($DSMaSanPham) {
-         
+
         $model["isShow"] = -1;
         $DSMaSanPham = implode("','", $DSMaSanPham);
         $where = "`Id` in ('{$DSMaSanPham}') ";
@@ -250,6 +253,22 @@ class SanPham extends \Model\DB implements \Model\IModelService {
         if (file_exists($urlHinh)) {
             unlink($urlHinh);
         }
+    }
+
+    /**
+     * Lấy sản phẩm mới nhất
+     * @param {type} parameter
+     */
+    public function SanPhamMoi($soLuongSanPham) {
+        $where = " 1 = 1 ORDER BY `DateCreate` DESC limit 0,{$soLuongSanPham}";
+        return $this->Select($where);
+    }
+
+    public function ThanhTien() {
+        return $this->Number * $this->Price;
+    }
+    public function ThanhTienToVND() {
+        return number_format($this->ThanhTien(),0, ".",",") ." vnđ";
     }
 
 }

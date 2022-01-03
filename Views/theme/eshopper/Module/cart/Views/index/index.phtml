@@ -1,13 +1,19 @@
-VIEW THEME
+<div class="breadcrumbs">
+    <ol class="breadcrumb">
+        <li><a href="#">Trang chủ</a></li>
+        <li class="active">Giỏ hàng</li>
+    </ol>
+</div>
+<h1 class="text-center" >Giỏ hàng</h1>
 <div class="table-responsive cart_info">
     <table class="table table-condensed">
         <thead>
             <tr class="cart_menu">
-                <td class="image">Item</td>
+                <td class="image">Sản phẩm</td>
                 <td class="description"></td>
-                <td class="price">Price</td>
-                <td class="quantity">Quantity</td>
-                <td class="total">Total</td>
+                <td class="price">Giá</td>
+                <td class="quantity">Số lượng</td>
+                <td class="total">Thành tiền</td>
                 <td><a class="cart_quantity_delete" href="<?php echo Module\cart\Model\Cart::LinkXoaGioHang(); ?>"><i class="fa fa-times"></i></a></td>
             </tr>
         </thead>
@@ -31,9 +37,9 @@ VIEW THEME
                     </td>
                     <td class="cart_quantity">
                         <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href="<?php echo Module\cart\Model\Cart::LinkThemSLSanPham($_item->Id,1); ?>"> + </a>
+                            <a class="cart_quantity_up" href="<?php echo Module\cart\Model\Cart::LinkThemSLSanPham($_item->Id, 1); ?>"> + </a>
                             <input onchange="" data-id="<?php echo $_item->Id; ?>" class="cart_quantity_input" type="text" name="quantity" value="<?php echo $_item->Number; ?>" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href="<?php echo Module\cart\Model\Cart::LinkTruSLSanPham($_item->Id,1); ?>"> - </a>
+                            <a class="cart_quantity_down" href="<?php echo Module\cart\Model\Cart::LinkTruSLSanPham($_item->Id, 1); ?>"> - </a>
                         </div>
                     </td>
                     <td class="cart_total">
@@ -53,16 +59,16 @@ VIEW THEME
 
                 </td>
                 <td colspan="2" >
-                     <p class="cart_total_price">
+                    <p class="cart_total_price">
                         <?php
-                       echo Module\cart\Model\Cart::TongTienToVnd();
+                        echo Module\cart\Model\Cart::TongTienToVnd();
                         ?>
-                     </p>
+                    </p>
                 </td>
             </tr> 
 
         </tbody>
     </table>
 </div>
-    <a class="btn btn-default" >Xem Sản Phẩm Khác </a>
-    <a href="<?php echo Module\cart\Model\Cart::LinkDatHang(); ?>" class="btn btn-default pull-right">Đặt Hàng </a>
+<a class="btn btn-default" >Xem Sản Phẩm Khác </a>
+<a href="<?php echo Module\cart\Model\Cart::LinkDatHang(); ?>" class="btn btn-default pull-right">Đặt Hàng </a>

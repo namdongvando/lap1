@@ -27,4 +27,14 @@ class FormCommon {
         return new FormRender(new Element\Textbox($label, $name, $properties));
     }
 
+    public static function TinhThanh($name,$properties,$label = "Tỉnh Thành Phố") {
+        $options = Locations::ToSelect(0);
+        return new FormRender(new Element\Select($label, $name, $options, $properties));
+    }
+
+    public static function QuanHuyen($parenst,$name,$properties,$label = "Quận Huyện") {
+        $options = Locations::ToSelect($parenst);
+        return new FormRender(new Element\Select($label, $name, $options, $properties));
+    }
+
 }

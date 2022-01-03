@@ -1,20 +1,66 @@
+<?php 
+if(\Module\cart\Model\Cart::DSSanPham()==false){
+    \Model\Common::ToUrl("/");
+}
+?>
+<form action="" method="post" >
+    <h3>Thông tin Khách hàng</h3>
+    <div  class="row">
+        <div class="col-md-4" >
+            <div class="form-group" >
+                <label>Họ & Tên</label>
+                <input required="" class="form-control" name="DonHang[HoTen]"  type="type"  >
+            </div>    
+        </div>
+        <div class="col-md-4" > 
+            <div class="form-group" >
+                <label>SĐT</label>
+                <input required="" class="form-control" name="DonHang[SDT]"  type="type"  >
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="form-group" >
+                <label>Email</label>
+                <input class="form-control" name="Email"  type="email"  >
+            </div>
+        </div> 
+    </div>
+    <div  class="row">
+        <div class="col-md-6" >
+            <?php
+            \Model\FormCommon::TinhThanh("DonHang[TinhThanh]", ["id" => "TinhThanhHtml", "value" => 32, "class" => "form-control"])->renderHTML();
+            ?>
+        </div>
+        <div class="col-md-6" >
+            <?php
+            \Model\FormCommon::QuanHuyen(32, "DonHang[QuanHuyen]", ["id" => "QuanHuyenHtml", "value" => 33, "class" => "form-control"])->renderHTML();
+            ?>
+        </div>
+        <div class="col-md-12" >
+            <div class="form-group" >
+                <label>Địa chỉ chi tiết</label>
+                <input class="form-control" name="DonHang[DiaChiChiTiet]"  type="text"  >
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <div class="form-group" >
+                <label>Thời Gian Giao Hàng</label>
+                <input class="form-control" min="<?php echo date("Y-m-d", time() + (24 * 3600)); ?>" name="DonHang[NgayGiaoHang]"  type="date"  >
+            </div>
+        </div>
+        <div class="col-md-12" >
+            <div class="form-group" >
+                <label>Ghi Chú</label>
+                <textarea class="form-control" name="DonHang[GhiChu]"   ></textarea>
+            </div>
+        </div>
+        <div class="clearfix" ></div>
+        <div class="col-md-12" >
+            <button class="btn btn-success" >Xác Nhận</button>
+        </div>
+    </div>    
+</form>
 
-<h3>Thông tin Khách hàng</h3>
-<div>
-    <div class="form-group" >
-        <label>Họ & Tên</label>
-        <input class="form-control" name="Name"  type="type"  >
-    </div>
-    <div class="form-group" >
-        <label>SĐT</label>
-        <input class="form-control" name="SDT"  type="type"  >
-    </div>
-    <div class="form-group" >
-        <label>Email</label>
-        <input class="form-control" name="Email"  type="email"  >
-    </div>
-    
-</div>
 
 <h3>Thông tin sản phẩm</h3>
 <div class="table-responsive cart_info">
@@ -26,7 +72,7 @@
                 <td class="price">Price</td>
                 <td class="quantity">Quantity</td>
                 <td class="total">Total</td>
-                 
+
             </tr>
         </thead>
         <tbody>
@@ -66,16 +112,33 @@
 
                 </td>
                 <td colspan="2" >
-                     <p class="cart_total_price">
+                    <p class="cart_total_price">
                         <?php
-                       echo Module\cart\Model\Cart::TongTienToVnd();
+                        echo Module\cart\Model\Cart::TongTienToVnd();
                         ?>
-                     </p>
+                    </p>
                 </td>
             </tr> 
 
         </tbody>
     </table>
 </div>
-    <a class="btn btn-default" >Xem Sản Phẩm Khác </a>
-    <a class="btn btn-default pull-right">Đặt Hàng </a>
+<a class="btn btn-default" >Xem Sản Phẩm Khác </a>
+<a class="btn btn-default pull-right">Đặt Hàng </a>
+<script type="text/javascript" >
+    $(function () {
+        $("#TinhThanhHtml").change(function (e) {
+            var MaTinh = $(this).val();
+            var urlDanhSachQuanHuyenTheoTinh = "/api/GetQuanHuyenTag/" + MaTinh;
+            $.ajax(
+                    {
+                        url: urlDanhSachQuanHuyenTheoTinh
+                    }
+            ).done(function (res) {
+                $("#QuanHuyenHtml").html(res);
+            });
+
+        });
+    });
+
+</script>

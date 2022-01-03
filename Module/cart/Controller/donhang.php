@@ -2,13 +2,11 @@
 
 namespace Module\cart\Controller;
 
-class index extends \Application {
+class donhang extends \Application {
 
     public function __construct() {
-        new \Controller\index();
-
-        self::$_Layout = "cart";
-        self::$_ViewTheme = true;
+        new \Controller\backend();
+ 
     }
 
     public function dathang() {

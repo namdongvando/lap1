@@ -13,6 +13,13 @@ class Common {
         exit();
     }
 
+    public static function TextInputNoHtml($text) {
+        $text = strip_tags($text);
+        $text = trim($text);
+        $text = addslashes($text);
+        return $text;
+    }
+
     public static function TextInput($text) {
         $text = trim($text);
         $text = addslashes($text);
@@ -148,6 +155,33 @@ class Common {
 
     public static function ViewPrice($number) {
         return number_format($number, 0, ".", ",") . " vnđ";
+    }
+
+    public static function DateInput($stringDate = null, $dateFormat = null
+            , $datePlus = 0, $minDate = null) {
+        if($dateFormat==null){
+            $dateFormat = "Y-m-d H:i:s";
+        }
+            
+        if ($minDate == null) {
+            if ($stringDate == false)
+            {
+                $time = time() + $datePlus;
+                return date($dateFormat, $time);
+            } 
+            return date($dateFormat, strtotime($stringDate) + $datePlus);
+        }
+        // kiem tra xem có min date không
+        $timeMin = strtotime($minDate);
+        $stringDate = strtotime($stringDate);
+        if ($timeMin > $stringDate) {
+            return date($dateFormat, $minDate);
+        }
+        return date($dateFormat, $stringDate);
+    }
+
+    public static function IntInput($string) {
+        return intval($string);
     }
 
 }

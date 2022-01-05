@@ -106,8 +106,8 @@ class Cart {
         $ngay = date("d", time());
         $thang = date("m", time());
         $nam = date("Y", time());
-        $count = DonHang::ToSoDonHang()+1;
-        return "DH-{$nam}-{$thang}-{$count}";    
+        $count = DonHang::ToSoDonHang().time();
+        return "DH-{$count}";    
     }
 
 }

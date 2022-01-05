@@ -48,4 +48,9 @@ class DonHangChiTiet extends \Model\DB implements \Model\IModelService, \Model\I
         
     }
 
+    public function GetItemsByIdDonHang($idDonHang) {
+        $where = "`IdDonHang` = '{$idDonHang}'";
+        return $this->Select($where);
+    }
+
 }

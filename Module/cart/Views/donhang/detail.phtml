@@ -1,0 +1,126 @@
+<?php
+$DonHang = new Module\cart\Model\DonHang($item);
+?>
+<ol class="breadcrumb" >
+    <li><a href="/cart/donhang/index" >Danh Sách Đơn Hàng</a></li>
+    <li><a  >Đơn hàng chi tiết</a></li>
+</ol>
+<div class="container-fluid" >
+    <div class="row" >
+        <div class="col-md-4" > 
+            <div class="box box-primary" >
+                <div class="box-header" >
+                    <h3 class="box-title" >Thông Tin Khách Hàng</h3>
+                    <div class="box-tools" >
+
+                    </div>
+                </div>
+                <div class="box-body" >
+                    <table class="table table-bordered" >
+                        <tr>
+                            <td>Họ & Tên</td>
+                            <td><?php echo $DonHang->HoTen; ?></td>
+                        </tr>
+                        <tr>
+                            <td>SĐT</td>
+                            <td><?php echo $DonHang->SDT; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><?php echo $DonHang->Email; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Tỉnh Thành Phố</td>
+                            <td><?php echo $DonHang->TinhThanh()->Name; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Quận Huyện</td>
+                            <td><?php echo $DonHang->QuanHuyen()->Name; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Địa Chỉ Chi Tiết</td>
+                            <td><?php echo $DonHang->DiaChiChiTiet; ?></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>    
+        </div>
+        <div class="col-md-8" > 
+            <div class="box box-primary" >
+                <div class="box-header" >
+                    <h3 class="box-title" >Thông Tin Đơn Hàng: <b> <?php echo $DonHang->Code; ?></b> | <?php echo $DonHang->SoSP; ?> | <?php echo $DonHang->TongTienVnd(); ?>
+                        <label class="<?php echo $DonHang->TinhTrangClass(); ?> " ><?php echo $DonHang->TinhTrang(); ?></label>
+                    </h3>
+
+                    <div class="box-tools" > 
+                        <a class="btn btn-primary" target="_self" data-toggle="modal" href='#modal-huy'>Sửa </a>
+                    </div>
+                </div>
+                <div class="box-body" >
+                    <h3>DS Sản Phẩm</h3>
+                    <table class="table table-bordered" >
+                        <?php
+                        $items = $DonHang->DonHangChiTiet();
+                        foreach ($items as $sp) {
+                            $_item = new Module\quanlysanpham\Model\SanPham($sp["IdSanPham"]);
+                            $_item->Number = $sp["SoLuong"];
+                            $_item->Price = $sp["Gia"];
+                            ?> 
+                            <tr>
+                                <td style="max-width: 150px;" ><img style="max-width: 100px;" src="<?php echo $_item->UrlImages ?>" ></td>
+                                <td>
+                                    <h3><?php echo $_item->Name; ?></h3>
+                                    <p>Mã:<?php echo $_item->Code; ?></p>
+                                    <p><?php echo $_item->Price(); ?> x
+                                        <b><?php echo $_item->Number; ?></b></p>
+
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<form action="" method="post" >
+    <div class="modal fade" id="modal-huy">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Xử Lý Đơn Hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Ghi Chú</label>
+                    <input name="Id" type="hidden" value="<?php echo $DonHang->Id; ?>" >
+                    <textarea required="" name="GhiChu" class="form-control" ></textarea>
+                </div>
+                <div class="modal-footer">
+                    <?php
+                    if ($DonHang->TinhTrang == Module\cart\Model\DonHang::Huy) {
+                        ?> 
+                        <button type="submit" name="btn" value="1" class="btn btn-primary">Đang Giao Hàng</button>
+                        <button type="submit" name="btn" value="2" class="btn btn-primary">Đã Giao Hàng</button>
+                        <?php
+                    } else if ($DonHang->TinhTrang != Module\cart\Model\DonHang::ThanhCong) {
+                        ?> 
+                        <button type="submit" name="btn" value="1" class="btn btn-primary">Đang Giao Hàng</button>
+                        <button type="submit" name="btn" value="2" class="btn btn-primary">Đã Giao Hàng</button>
+                        <button type="submit" name="btn" value="-1" title="Bạn có muốn hủy đơn hàng này?" class="btn btn-danger">Hủy</button>
+                        <button type="submit" name="btn" value="3" class="btn btn-primary">Thàng Công</button>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>    
+</form>

@@ -25,5 +25,10 @@ class index extends \Application {
     function loi404() {
        $this->View();
     }
-
+    
+    function productdetail() {
+        $alias = \Model\Request::Get("param", null);
+        
+        $this->View(["Item"=>$alias]);     
+    }
 }

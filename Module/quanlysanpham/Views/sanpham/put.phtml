@@ -6,6 +6,7 @@
 <?php
 
 use Module\quanlysanpham\Model\SanPham\FormSanPham;
+use Module\quanlysanpham\Model\SanPham\FormSanPhamInfor;
 
 $_item = new Module\quanlysanpham\Model\SanPham($item);
 ?>
@@ -198,6 +199,10 @@ $_item = new Module\quanlysanpham\Model\SanPham($item);
                                 <?php
                                 FormSanPham::BuyTimes($_item->BuyTimes)->renderHTML();
                                 FormSanPham::Views($_item->Views)->renderHTML();
+                                FormSanPhamInfor::ThuongHieu($_item->Infor("ThuongHieu")->Val)->renderHTML();
+                                FormSanPhamInfor::TinhTrang($_item->Infor("TinhTrang")->Val)->renderHTML();
+                                FormSanPhamInfor::Tag($_item->Infor("Tag")->Val)->renderHTML();
+                                
                                 ?>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="Content">

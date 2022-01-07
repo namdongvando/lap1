@@ -44,6 +44,9 @@ class SanPham extends \Model\DB implements \Model\IModelService {
             if (!is_array($sp)) {
                 $id = $sp;
                 $sp = $this->GetById($id);
+                if ($sp == null) {
+                    $sp = $this->GetByAlias($id);
+                }
             }
             if ($sp) {
                 $this->Id = isset($sp["Id"]) ? $sp["Id"] : null;
@@ -61,7 +64,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
                 $this->Content = isset($sp["Content"]) ? $sp["Content"] : null;
                 $this->UrlImages = isset($sp["UrlImages"]) ? $sp["UrlImages"] : null;
                 $this->DateCreate = isset($sp["DateCreate"]) ? $sp["DateCreate"] : null;
-                 
+
                 $this->Number = isset($sp["Number"]) ? $sp["Number"] : null;
                 $this->Note = isset($sp["Note"]) ? $sp["Note"] : null;
                 $this->BuyTimes = isset($sp["BuyTimes"]) ? $sp["BuyTimes"] : null;
@@ -267,8 +270,23 @@ class SanPham extends \Model\DB implements \Model\IModelService {
     public function ThanhTien() {
         return $this->Number * $this->Price;
     }
+
     public function ThanhTienToVND() {
-        return number_format($this->ThanhTien(),0, ".",",") ." vnđ";
+        return number_format($this->ThanhTien(), 0, ".", ",") . " vnđ";
+    }
+
+    public function LinkChiTiet() {
+        return "/san-pham/" . $this->Alias . ".html";
+    }
+
+    public function GetByAlias($id) {
+        $where = "`Alias` = '{$id}'";
+        return $this->SelectRow($where);
+    }
+
+    public function Infor($keyword) {
+        $spif = new SanPham\SanPhamInfor();
+        return new SanPham\SanPhamInfor($spif->GetByKeywordIdSanPham($this->Id, $keyword));
     }
 
 }

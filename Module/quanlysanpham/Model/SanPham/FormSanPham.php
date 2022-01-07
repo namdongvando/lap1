@@ -112,7 +112,7 @@ class FormSanPham implements iFormSanPham {
 
     public static function Summary($val = null) {
         $properties = self::$properties;
-        $properties["value"] = $val; 
+        $properties["value"] = $val;
         $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
         return new FormRender(new Element\Textarea("Mô Tả Ngắn", $name, $properties));
     }
@@ -133,8 +133,8 @@ class FormSanPham implements iFormSanPham {
     }
 
     public static function Views($val = null) {
-         $properties = self::$properties;
-        $properties["value"] =  $val;
+        $properties = self::$properties;
+        $properties["value"] = $val;
         $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
         return new FormRender(new Element\Textbox("Lượt Xem", $name, $properties));
     }
@@ -176,5 +176,7 @@ class FormSanPham implements iFormSanPham {
         $name = self::$ElementsName . "[" . __FUNCTION__ . "]";
         return new FormRender(new Element\Textarea("Tiêu Đề", $name, $properties));
     }
+
+   
 
 }

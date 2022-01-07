@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -21,7 +20,7 @@ class OptionsService extends DB implements IModelService, IModelToOptions {
     public $GroupsId;
 
     public function __construct($op = null) {
-        parent::$TableName = prefixTable."options";
+        parent::$TableName = prefixTable . "options";
         parent::__construct();
         if ($op) {
             if (!is_array($op)) {
@@ -47,11 +46,14 @@ class OptionsService extends DB implements IModelService, IModelToOptions {
         return $this->SelectById($Id);
     }
 
-    public function GetItems($where, $indexPage, $pageNumber, &$total) {
-        
+    public function GetItems($param, $indexPage, $pageNumber, &$total) {
+        $where = "`GroupsId`= '{$param["GroupsId"]}' and `Name` like '%{$param["keyword"]}%'";
+        return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 
     public function Post($model) {
+        if (!isset($model["Id"]))
+            $model["Id"] = Common::uuid();
         return $this->Insert($model);
     }
 
@@ -60,11 +62,26 @@ class OptionsService extends DB implements IModelService, IModelToOptions {
     }
 
     public static function GetGroupsToSelect($idGroups) {
-        return $this->SelectToOptions("`GroupsId`= '{$idGroups}' ", ["Val", "Name"]);
+        $ops = new OptionsService();
+        return $ops->SelectToOptions("`GroupsId`= '{$idGroups}' ", ["Val", "Name"]);
     }
 
     public static function ToSelect() {
-        return $this->SelectToOptions("1=1", ["Val", "Name"]);
+        $ops = new OptionsService();
+        return $ops->SelectToOptions("1=1", ["Val", "Name"]);
+    }
+
+    public function btnSua() {
+        if (Permission::CheckPremision([User::Admin, "QuanLyNhanSu"]))
+            
+            ?>
+        <a href="/options/put/<?php echo $this->Id; ?>" class="btn btn-primary btn-sm" >Sửa</a>
+        <?php
+    }
+
+    public function GetByValGroupsId($val, $groupsId) {
+        $where = "`GroupsId`= '{$groupsId}' and `Val` = '{$val}'";
+        return $this->SelectRow($where);
     }
 
 }

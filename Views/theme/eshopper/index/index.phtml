@@ -13,7 +13,8 @@
                         <div class="productinfo text-center">
                             <img src="<?php echo $_item->UrlImages; ?>" alt="<?php echo $_item->Name; ?>" />
                             <h2><?php echo $_item->Price(); ?></h2>
-                            <p><?php echo $_item->Name; ?></p>
+                            <p>
+                                <a href="<?php echo $_item->LinkChiTiet(); ?>" ><?php echo $_item->Name; ?></a></p>
                             <a href="<?php echo Module\cart\Model\Cart::LinkThemSanPham($_item->Id);?>" class="btn btn-default add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>Thêm Giỏ Hàng
                             </a>
@@ -21,7 +22,10 @@
                         <div class="product-overlay">
                             <div class="overlay-content">
                                 <h2><?php echo $_item->Price(); ?></h2>
-                                <p><?php echo $_item->Name; ?></p>
+                                <p>
+                                    <a href="<?php echo $_item->LinkChiTiet(); ?>" ><?php echo $_item->Name; ?></a>
+                                </p>
+                            
                                 <a href="<?php echo Module\cart\Model\Cart::LinkThemSanPham($_item->Id);?>" class="btn btn-default add-to-cart">
                                     <i class="fa fa-shopping-cart"></i>Thêm Giỏ Hàng
                                 </a>

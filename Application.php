@@ -41,6 +41,7 @@ class Application {
         $controller = self::$_Controller;
         $action = self::$_Action;
         $theme = self::$_Theme;
+        $_Params = self::$_Params;
         $_layout = self::$_Layout == null ? "" : "_" . self::$_Layout;
         $_Content = __DIR__ . "/Views/theme/{$theme}/{$controller}/{$action}.phtml";
 

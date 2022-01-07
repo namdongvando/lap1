@@ -40,4 +40,5 @@ interface iFormSanPham {
     static public function STT($val = null);
 
     static public function Lang($val = null);
+  
 }

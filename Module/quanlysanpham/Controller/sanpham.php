@@ -3,6 +3,7 @@
 namespace Module\quanlysanpham\Controller;
 
 use Module\quanlysanpham\Model\SanPham\FormSanPham;
+use Module\quanlysanpham\Model\SanPham\FormSanPhamInfor;
 
 class sanpham extends \Application implements \Controller\IControllerBE {
 
@@ -66,7 +67,7 @@ class sanpham extends \Application implements \Controller\IControllerBE {
             foreach ($ids as $id => $onOf) {
                 $sanPham = new \Module\quanlysanpham\Model\SanPham();
                 $sanPham->Delete($id);
-            } 
+            }
             \Model\Common::ToUrl($_SERVER["HTTP_REFERER"]);
         }
         $id = $this->getParams(0);
@@ -149,9 +150,28 @@ class sanpham extends \Application implements \Controller\IControllerBE {
             $item['UrlImages'] = strip_tags(\Model\Common::TextInput($itemHtml["UrlImages"]));
             $item['Title'] = strip_tags(\Model\Common::TextInput($itemHtml["Title"]));
             $SanPham->Put($item);
+
+            $sanPhamInfor = \Model\Request::Post(FormSanPhamInfor::$ElementsName, []);
+            $ModelanPhamInfor = new \Module\quanlysanpham\Model\SanPham\SanPhamInfor();
+            foreach ($sanPhamInfor as $keyItem => $valueItem) {
+                $itemModel = $ModelanPhamInfor->GetByKeywordIdSanPham($id, $keyItem);
+//               đã  khai báo
+                if ($itemModel) {
+                    $itemModel["Val"] = $valueItem;
+                    $ModelanPhamInfor->Put($itemModel);
+                } else {
+                    // lần đầu có 
+                    $itemModel["Id"] = \Model\Common::uuid();
+                    $itemModel["Keyword"] = $keyItem;
+                    $itemModel["Val"] = $valueItem;
+                    $itemModel["Des"] = "";
+                    $itemModel["IdSanPham"] = $id;
+                    $ModelanPhamInfor->Post($itemModel);
+                }
+            }
         }
 
-
+        $SanPham = new \Module\quanlysanpham\Model\SanPham();
         $id = \Model\Request::Get("id", null);
         $item = $SanPham->GetById($id);
 

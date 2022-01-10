@@ -26,6 +26,8 @@ RewriteRule public - [L]
 #RewriteRule (.*) https://%{SERVER_NAME}/$1 [L]
 
 RewriteRule  san-pham\/(.*)\.html(.*) /index.php?controller=index&action=productdetail&param=$1 [L]
+RewriteRule  thuong-hieu\/(.*)\.html(.*) /index.php?controller=index&action=thuonghieu&param=$1 [L]
+RewriteRule  danh-muc\/(.*)\.html(.*) /index.php?controller=index&action=danhmuc&param=$1 [L]
 RewriteRule  (.*)\.html(.*) /index.php?controller=index&action=pages&param=$1 [L]
 
 

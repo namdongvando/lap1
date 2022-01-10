@@ -25,6 +25,9 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
             if (!is_array($dm)) {
                 $id = $dm;
                 $dm = $this->GetById($id);
+                if($dm==null){
+                    $dm = $this->GetByPath($id);
+                }
             }
             if ($dm) {
                 $this->Id = isset($dm["Id"]) ? $dm["Id"] : null;
@@ -58,6 +61,11 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
         return $this->SelectById($Id);
     }
 
+    public function GetByPath($path) {
+        $where = "`Path` = '{$path}'";
+        return $this->SelectRow($where);
+    }
+
     public function GetItems($params, $indexPage, $pageNumber, &$total) {
         $where = "`Name` like '%{$params["keyword"]}%'";
         return $this->SelectPT($where, $indexPage, $pageNumber, $total);
@@ -69,6 +77,14 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
 
     public function Put($model) {
         return $this->UpdateRow($model);
+    }
+
+    public function DanhMucTheoCapCha($capCha = null) {
+        $where = "`parentsId` = '{$capCha}' ";
+        if ($capCha == null || $capCha == "") {
+            $where = "`parentsId` = '{$capCha}' or `parentsId` is null";
+        }
+        return $this->Select($where);
     }
 
     public static function CapChaTpOptions($dungTatCa = false) {
@@ -83,6 +99,10 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
 
     public function btnSua() {
         
+    }
+
+    public function Link() {
+        return "/danh-muc/" . $this->Path . ".html";
     }
 
 }

@@ -40,7 +40,7 @@ class SanPhamInfor extends \Model\DB implements \Model\IModelService, \Model\IMo
 
     public function GetItems($where, $indexPage, $pageNumber, &$total) {
         
-    } 
+    }
 
     public function Post($model) {
         return $this->Insert($model);
@@ -65,7 +65,14 @@ class SanPhamInfor extends \Model\DB implements \Model\IModelService, \Model\IMo
      */
     public function Val($groupsId) {
         $ops = new \Model\OptionsService();
-        return new \Model\OptionsService($ops->GetByValGroupsId($this->Val,$groupsId));
+        return new \Model\OptionsService($ops->GetByValGroupsId($this->Val, $groupsId));
+    }
+
+    public function GetByKeywordVal($params, $indexPage, $pageNumber, &$total) {
+        $keyword= $params["keyword"];
+        $Val= $params["val"];
+        $where = "`Keyword` = '{$keyword}' and `Val` ='{$Val}'";
+        return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 
 }

@@ -89,6 +89,8 @@ class danhmuc extends \Application implements \Controller\IControllerBE {
                 $model["Name"] = $itemHtml["Name"];
                 $model["keyword"] = strip_tags($itemHtml["keyword"]);
                 $model["Lang"] = $itemHtml["Lang"];
+                $model["path"] = \Model\Common::BoDauTienViet($model["Name"]);
+                $model["parentsId"] = $itemHtml["parentsId"];
                 $model["des"] = strip_tags($itemHtml["des"]);
                 $model["title"] = strip_tags($itemHtml["title"]);
                 $dm = new \Module\quanlysanpham\Model\DanhMuc();

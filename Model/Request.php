@@ -35,5 +35,11 @@ class Request {
         }
         return $value;
     }
+    public static function Reqest($name, $value) {
+          if (isset($_REQUEST[$name])) {
+            return $_REQUEST[$name];
+        }
+        return $value;
+    }
 
 }

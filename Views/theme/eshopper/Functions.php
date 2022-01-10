@@ -66,6 +66,7 @@ class Functions {
     }
 
     public static function Header() {
+        $_REQUEST["keyword"] = isset($_REQUEST["keyword"])?$_REQUEST["keyword"]:"";
         ?> 
         <header id="header"><!--header-->
             <div class="header_top"><!--header_top-->
@@ -158,7 +159,9 @@ class Functions {
                         </div>
                         <div class="col-sm-3">
                             <div class="search_box pull-right">
-                                <input type="text" placeholder="Search"/>
+                                <form action="/index/timkiem/" method="get" >
+                                    <input value="<?php echo $_REQUEST["keyword"]; ?>" type="text" name="keyword" placeholder="Search"/>
+                                </form>
                             </div>
                         </div>
                     </div>

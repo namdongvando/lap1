@@ -111,10 +111,23 @@ class SanPham extends \Model\DB implements \Model\IModelService {
 
     public function GetItems($params, $indexPage, $pageNumber, &$total) {
         $name = isset($params["keyword"]) ? $params["keyword"] : '';
+         
+        $giatu = isset($params["giatu"]) ? $params["giatu"] : null;
+        $giaden = isset($params["giaden"]) ? $params["giaden"] : null;
         $danhmuc = isset($params["danhmuc"]) ? $params["danhmuc"] : null;
         $isShow = isset($params["isShow"]) ? $params["isShow"] : null;
         $isShowSql = "and `isShow` >= '0' ";
         $danhmucSql = "";
+         
+        $giaTuSql = "";
+        if ($giatu) {
+            $giaTuSql = "and `price` >= {$giatu} ";
+        }
+        $giadenSql = "";
+        if ($giaden) {
+            $giadenSql = "and `price` <= {$giaden} ";
+        }
+
 
         if ($isShow) {
             $isShowSql = "and `isShow` = '{$isShow}' ";
@@ -123,7 +136,7 @@ class SanPham extends \Model\DB implements \Model\IModelService {
             $danhmucSql = "and `DanhMucId` = '{$danhmuc}' ";
         }
 
-        $where = " `Name` like '%{$name}%' {$danhmucSql} $isShowSql";
+        $where = " `Name` like '%{$name}%' {$danhmucSql} $isShowSql $giaTuSql $giadenSql";
         return $this->SelectPT($where, $indexPage, $pageNumber, $total);
     }
 

@@ -1,0 +1,24 @@
+
+<?php
+$danhMuc = new Module\quanlysanpham\Model\DanhMuc($Item);
+$items = $danhMuc->SanPham(4);
+foreach ($items as $key => $value) {
+    $_sp = new Module\quanlysanpham\Model\SanPham($value);
+    ?> 
+    <div class="col-sm-3">
+        <div class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">
+                    <img src="<?php echo $_sp->UrlImages ?>" alt="<?php echo $_sp->Name ?>" />
+                    <h2><?php echo $_sp->Price() ?></h2>
+                    <p><?php echo $_sp->Name ?></p>
+                    <a href="<?php echo Module\cart\Model\Cart::LinkThemSanPham($_sp->Id) ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+

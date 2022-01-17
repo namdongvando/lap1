@@ -5,7 +5,7 @@ namespace Controller;
 class index extends \Application {
 
     public function __construct() {
-        self::$_Theme = "eshopper";
+        self::$_Theme = "homeshop";
     }
 
     function index() {
@@ -46,6 +46,7 @@ class index extends \Application {
         $data["pageNumber"] = $pageNumber;
         $data["total"] = $total;
         $data["params"] = $params;
+        self::$_Layout ="timkiem";
         $this->View($data);
     }
 

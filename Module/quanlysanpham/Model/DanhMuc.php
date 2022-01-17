@@ -25,7 +25,7 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
             if (!is_array($dm)) {
                 $id = $dm;
                 $dm = $this->GetById($id);
-                if($dm==null){
+                if ($dm == null) {
                     $dm = $this->GetByPath($id);
                 }
             }
@@ -103,6 +103,11 @@ class DanhMuc extends \Model\DB implements \Model\IModelService {
 
     public function Link() {
         return "/danh-muc/" . $this->Path . ".html";
+    }
+
+    public function SanPham($number) {
+        $sanPham = new SanPham();
+        return $sanPham->GetSanPhamByDanhMuc($this->Id, $number);
     }
 
 }
